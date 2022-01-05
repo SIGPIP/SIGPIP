@@ -1,0 +1,267 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="~/Assets/images/favicon.ico">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <script defer src="https://use.fontawesome.com/releases"></script>
+    <title>SIGPIP</title>
+
+    <!-- Bootstrap 4.0-->
+    <link rel="stylesheet" href="~/Assets/vendor_components/bootstrap/dist/css/bootstrap.min.css">
+
+    <!-- Bootstrap extend-->
+    <link rel="stylesheet" href="~/Assets/css/bootstrap-extend.css">
+
+    <!-- Theme style -->
+    <link rel="stylesheet" href="~/Assets/css/master_style.css">
+
+    <!-- Select2 -->
+	<link rel="stylesheet" href="~/Assets/vendor_components/select2/dist/css/select2.min.css">
+
+    <!-- Fab Admin skins -->
+    <link rel="stylesheet" href="~/Assets/css/skins/_all-skins.css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+    <!-- Site wrapper -->
+    <div class="wrapper">
+
+        <header class="main-header">
+            <!-- Logo -->
+            <a href="~/Assets/index.html" class="logo">
+                <!-- mini logo -->
+                <b class="logo-mini">
+                    <span class="light-logo"><img src="~/Assets/images/logo-light.png" alt="logo"></span>
+                    <span class="dark-logo"><img src="~/Assets/images/logo-dark.png" alt="logo"></span>
+                </b>
+                <!-- logo-->
+                <span class="logo-lg">
+                    <img src="~/Assets/images/logo-light-text.png" alt="logo" class="light-logo">
+                    <img src="~/Assets/images/logo-dark-text.png" alt="logo" class="dark-logo">
+                </span>
+            </a>
+            <!-- Header Navbar -->
+            <nav class="navbar navbar-static-top">
+                <!-- Sidebar toggle button-->
+                <div>
+                    <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+                        <span class="sr-only">Toggle navigation</span>
+                    </a>
+
+                    <div class="btn-group d-none d-lg-inline-block mt-5">
+                    </div>
+                </div>
+
+                <div class="navbar-custom-menu">
+                    <ul class="nav navbar-nav">
+                        <!-- User Account-->
+                        <li class="dropdown user user-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <img src="~/Assets/images/user_logo.png" class="user-image rounded-circle" alt="User Image">
+                            </a>
+                            <ul class="dropdown-menu scale-up">
+                                <!-- User image -->
+                                <li class="user-header">
+                                    <img src="~/Assets/images/user_logo.png" class="float-left rounded-circle" alt="User Image">
+
+                                    <p>
+                                        Usuario
+                                        <small class="mb-5">correo@mail.com</small>
+                                    </p>
+                                </li>
+                                <!-- Menu Body -->
+                                <li class="user-body">
+                                    <div class="row no-gutters">
+                                        <div role="separator" class="divider col-12"></div>
+                                        <div class="col-12 text-left">
+                                            <a href="#"><i class="fa fa-power-off"></i> Cerrar Sesión</a>
+                                        </div>
+                                    </div>
+                                    <!-- /.row -->
+                                </li>
+                            </ul>
+                        </li>
+                        <!-- Control Sidebar Toggle Button -->
+                        <li>
+                            <a href="#" data-toggle="control-sidebar"><i class="fa fa-cog"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+
+        <!-- Left side column. contains the sidebar -->
+        <aside class="main-sidebar">
+            <!-- sidebar-->
+            <section class="sidebar">
+
+                <!-- sidebar menu-->
+                <ul class="sidebar-menu" data-widget="tree">
+                    <li class="user-profile treeview">
+                        <a href="index.html">
+                            <img src="~/Assets/images/user_logo.png" alt="user">
+                            <span>Usuario</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-right pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="javascript:void()"><i class="fa fa-power-off mr-5"></i>Cerrar Sesión</a></li>
+                        </ul>
+                    </li>
+                    <li class="header nav-small-cap">PERSONAL</li>
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-folder"></i> <span>Tus Proyectos</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-right pull-right"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-briefcase"></i> <span>Tu Portafolio</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-right pull-right"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-clock"></i> <span>Proyectos Pendientes</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-right pull-right"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-lightbulb"></i> <span>Proyectos Deseados</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-right pull-right"></i>
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+            </section>
+        </aside>
+
+        <!-- =============================================== -->
+        <!-- Content Wrapper. Contains page content -->
+        @RenderBody()
+        @*        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+            <h1>
+            Blank page
+            </h1>
+            <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="breadcrumb-item"><a href="#">Examples</a></li>
+            <li class="breadcrumb-item active">Blank page</li>
+            </ol>
+            </section>
+
+            <!-- Main content -->
+            <section class="content">
+            <!-- Default box -->
+            <div class="box">
+            <div class="box-header with-border">
+            <h3 class="box-title">Title</h3>
+
+            <ul class="box-controls pull-right">
+            <li><a class="box-btn-close" href="#"></a></li>
+            <li><a class="box-btn-slide" href="#"></a></li>
+            <li><a class="box-btn-fullscreen" href="#"></a></li>
+            </ul>
+            </div>
+            <div class="box-body">
+            This is some text within a card block.
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer">
+            Footer
+            </div>
+            <!-- /.box-footer-->
+            </div>
+            <!-- /.box -->
+
+            </section>
+            <!-- /.content -->
+            </div>*@
+        <!-- /.content-wrapper -->
+
+        <footer class="main-footer">
+            &copy; 2022. All Rights Reserved.
+        </footer>
+        <!-- Control Sidebar -->
+        <aside class="control-sidebar control-sidebar-light">
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <!-- Home tab content -->
+                <div class="tab-pane" id="control-sidebar-home-tab">
+                    <ul class="control-sidebar-menu">
+                        <li>
+                            <a href="javascript:void(0)">
+                            </a>
+                        </li>
+                    </ul>
+
+                    <!-- /.control-sidebar-menu -->
+
+                </div>
+                <!-- /.tab-pane -->
+                <!-- Stats tab content -->
+                <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div>
+                <!-- /.tab-pane -->
+                <!-- Settings tab content -->
+                <div class="tab-pane" id="control-sidebar-settings-tab">
+                    <form method="post">
+                        <!-- /.form-group -->
+                    </form>
+                </div>
+                <!-- /.tab-pane -->
+            </div>
+        </aside>
+        <!-- /.control-sidebar -->
+        <!-- Add the sidebar's background. This div must be placed immediately after the control sidebar -->
+        <div class="control-sidebar-bg"></div>
+    </div>
+    <!-- ./wrapper -->
+    <!-- jQuery 3 -->
+    <script src="~/Assets/vendor_components/jquery/dist/jquery.min.js"></script>
+
+    <!-- popper -->
+    <script src="~/Assets/vendor_components/popper/dist/popper.min.js"></script>
+
+    <!-- Bootstrap 4.0-->
+    <script src="~/Assets/vendor_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <!-- SlimScroll -->
+    <script src="~/Assets/vendor_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- FastClick -->
+    <script src="~/Assets/vendor_components/fastclick/lib/fastclick.js"></script>
+
+    <!-- Fab Admin App -->
+    <script src="~/Assets/js/template.js"></script>
+
+    <!-- Fab Admin for demo purposes -->
+    <script src="~/Assets/js/demo.js"></script>
+
+
+</body>
+</html>

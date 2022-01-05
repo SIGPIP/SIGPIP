@@ -121,7 +121,7 @@ namespace SIGPIP.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        public IActionResult Index()
+        public IActionResult Portfolio()
         {
             return View();
         }
