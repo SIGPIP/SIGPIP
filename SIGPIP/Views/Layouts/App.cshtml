@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -22,6 +22,9 @@
 
     <!-- Select2 -->
 	<link rel="stylesheet" href="~/Assets/vendor_components/select2/dist/css/select2.min.css">
+
+    <!--alerts CSS -->
+    <link href="~/Assets/vendor_components/sweetalert/sweetalert.css" rel="stylesheet" type="text/css">
 
     <!-- Fab Admin skins -->
     <link rel="stylesheet" href="~/Assets/css/skins/_all-skins.css">
@@ -77,8 +80,8 @@
                                     <img src="~/Assets/images/user_logo.png" class="float-left rounded-circle" alt="User Image">
 
                                     <p>
-                                        Usuario
-                                        <small class="mb-5">correo@mail.com</small>
+                                        User
+                                        <small class="mb-5">myEmail@mail.com</small>
                                     </p>
                                 </li>
                                 <!-- Menu Body -->
@@ -86,7 +89,7 @@
                                     <div class="row no-gutters">
                                         <div role="separator" class="divider col-12"></div>
                                         <div class="col-12 text-left">
-                                            <a href="#"><i class="fa fa-power-off"></i> Cerrar Sesión</a>
+                                            <a href="#"><i class="fa fa-power-off"></i> Logout</a>
                                         </div>
                                     </div>
                                     <!-- /.row -->
@@ -112,19 +115,19 @@
                     <li class="user-profile treeview">
                         <a href="index.html">
                             <img src="~/Assets/images/user_logo.png" alt="user">
-                            <span>Usuario</span>
+                            <span>User</span>
                             <span class="pull-right-container">
                                 <i class="fa fa-angle-right pull-right"></i>
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="javascript:void()"><i class="fa fa-power-off mr-5"></i>Cerrar Sesión</a></li>
+                            <li><a href="javascript:void()"><i class="fa fa-power-off mr-5"></i>Logout</a></li>
                         </ul>
                     </li>
                     <li class="header nav-small-cap">PERSONAL</li>
                     <li>
                         <a href="#">
-                            <i class="fa fa-folder"></i> <span>Tus Proyectos</span>
+                            <i class="fa fa-folder"></i> <span>Your Projects</span>
                             <span class="pull-right-container">
                                 <i class="fa fa-angle-right pull-right"></i>
                             </span>
@@ -132,7 +135,7 @@
                     </li>
                     <li>
                         <a href="#">
-                            <i class="fa fa-briefcase"></i> <span>Tu Portafolio</span>
+                            <i class="fa fa-briefcase"></i> <span>Your Portfolio</span>
                             <span class="pull-right-container">
                                 <i class="fa fa-angle-right pull-right"></i>
                             </span>
@@ -140,7 +143,7 @@
                     </li>
                     <li>
                         <a href="#">
-                            <i class="fa fa-clock"></i> <span>Proyectos Pendientes</span>
+                            <i class="fa fa-clock"></i> <span>Pending Projects</span>
                             <span class="pull-right-container">
                                 <i class="fa fa-angle-right pull-right"></i>
                             </span>
@@ -148,7 +151,7 @@
                     </li>
                     <li>
                         <a href="#">
-                            <i class="fa fa-lightbulb"></i> <span>Proyectos Deseados</span>
+                            <i class="fa fa-lightbulb"></i> <span>Desired Projects</span>
                             <span class="pull-right-container">
                                 <i class="fa fa-angle-right pull-right"></i>
                             </span>
@@ -261,6 +264,9 @@
 
     <!-- Fab Admin for demo purposes -->
     <script src="~/Assets/js/demo.js"></script>
+
+    <!-- Sweet Alert -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 
 </body>

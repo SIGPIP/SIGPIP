@@ -130,5 +130,11 @@ namespace SIGPIP.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public ActionResult updatePersonalInfoPortfolio(string field_Names, string field_LastNames, string field_Country, string field_Career, string field_Semester, string field_Email, string field_Bio) {
+            ViewBag.message = field_Names + " " + field_LastNames + " " + field_Country + " " + field_Career + " " + field_Semester + " " + field_Email + " " + field_Bio;
+            return View("Portfolio");
+        }
     }
 }
