@@ -1,0 +1,95 @@
+﻿@model SIGPIP.Models.StudentModel
+
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_LayoutLoginRegister.cshtml";
+}
+
+@section Styles{
+    <link rel="stylesheet" href="~/css/styleLogin.css"/>
+}
+
+@section Nav{
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top">
+          <a class="navbar-brand" href="#">SIGPIP</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">More</a>
+                <div class="dropdown-menu" aria-labelledby="dropdown04">
+                  <a class="dropdown-item" asp-controller="Home" asp-action="Team">Team</a>
+                  <a class="dropdown-item href="#">Github</a>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </nav>
+}
+
+<section class="ftco-section">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-md-12 col-lg-10">
+					<div class="wrap d-md-flex">
+						<div class="text-wrap p-4 p-lg-5 text-center d-flex align-items-center order-md-last">
+							<div class="text w-100">
+								<h2>Welcome to SIGPIP</h2>
+								<p>Don't have an account?</p>
+								<a asp-action="Register" class="btn btn-white btn-outline-white">Register</a>
+							</div>
+			            </div>
+						<div class="login-wrap p-4 p-lg-5">
+			      	        <div class="d-flex">
+			      		    <div class="w-100">
+			      			    <h3 class="mb-4">Login</h3>
+			      		    </div>
+			      	    </div>
+				    <form  autocomplete="off" asp-action="Login" class="signin-form">
+			      		<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+     
+                        <div class="form-group">
+                            <label asp-for="studentEmail" class="control-label">Email</label>
+                            <input asp-for="studentEmail" placeholder="Email" class="form-control" />
+                            <span asp-validation-for="studentEmail" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="studentPassword" class="control-label">Password</label>
+                            <input asp-for="studentPassword" placeholder="Password" class="form-control" />
+                            <span asp-validation-for="studentPassword" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Login" class="form-control btn btn-primary submit px-3" />
+                        </div>
+		          </form>
+		        </div>
+		      </div>
+				</div>
+			</div>
+		</div>
+</section>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+     @if (TempData["errorLogin"] != null)
+        {
+            <script type="text/javascript">
+                window.onload = function () {
+                    swal("Error!", '@TempData["errorLogin"]', "error");
+                };
+            </script>
+        }
+
+        @if (TempData["successRegister"] != null)
+        {
+            <script type="text/javascript">
+                window.onload = function () {
+                    swal("Congrats!", '@TempData["successRegister"]', "success");
+                };
+            </script>
+        }
+}
