@@ -43,7 +43,7 @@
 
         <header class="main-header">
             <!-- Logo -->
-            <a href="~/Assets/index.html" class="logo">
+            <a href="~/Student/Home" class="logo">
                 <!-- mini logo -->
                 <b class="logo-mini">
                     <span class="light-logo"><img src="~/Assets/images/logo-light.png" alt="logo"></span>
@@ -80,8 +80,8 @@
                                     <img src="~/Assets/images/user_logo.png" class="float-left rounded-circle" alt="User Image">
 
                                     <p>
-                                        User
-                                        <small class="mb-5">myEmail@mail.com</small>
+                                        @ViewBag.studentName
+                                        <small class="mb-5">@ViewBag.studentEmail</small>
                                     </p>
                                 </li>
                                 <!-- Menu Body -->
@@ -89,7 +89,7 @@
                                     <div class="row no-gutters">
                                         <div role="separator" class="divider col-12"></div>
                                         <div class="col-12 text-left">
-                                            <a href="#"><i class="fa fa-power-off"></i> Logout</a>
+                                            <a asp-action="Logout"><i class="fa fa-power-off"></i> Logout</a>
                                         </div>
                                     </div>
                                     <!-- /.row -->
@@ -115,13 +115,15 @@
                     <li class="user-profile treeview">
                         <a href="index.html">
                             <img src="~/Assets/images/user_logo.png" alt="user">
-                            <span>User</span>
+                            <span>@ViewBag.studentName</span>
                             <span class="pull-right-container">
                                 <i class="fa fa-angle-right pull-right"></i>
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="javascript:void()"><i class="fa fa-power-off mr-5"></i>Logout</a></li>
+                            <div>
+                                <a asp-action="Logout"><i class="fa fa-power-off"></i> Logout</a>
+                            </div>
                         </ul>
                     </li>
                     <li class="header nav-small-cap">PERSONAL</li>
@@ -134,7 +136,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a asp-controller="Student" asp-action="Portfolio">
                             <i class="fa fa-briefcase"></i> <span>Your Portfolio</span>
                             <span class="pull-right-container">
                                 <i class="fa fa-angle-right pull-right"></i>
@@ -270,5 +272,6 @@
 
     <!-- Form validator JavaScript -->
     <script src="~/Assets/js/pages/validation.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

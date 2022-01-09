@@ -201,6 +201,10 @@ namespace SIGPIP.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("studentConfirmPassword")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("studentCountry")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -214,6 +218,10 @@ namespace SIGPIP.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("studentNames")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("studentPassword")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

@@ -1,0 +1,28 @@
+﻿@model SIGPIP.Models.StudentModel
+
+
+@{
+    ViewData["Title"] = "Home";
+    Layout = "~/Views/Shared/_LayoutPortfolio.cshtml";
+}
+
+<div class="content-wrapper">
+    
+    <!-- Content Header (Page header) -->
+    
+
+    <!-- Main content -->
+    <section class="content">
+       <h1>Home</h1>
+
+        <p>Welcome! @ViewBag.studentName</p>
+        <p>Yout ID is: @ViewBag.studentIdLogged</p>
+
+        <div>
+            <a asp-action="Logout">Logout</a>
+        </div>
+    </section>
+    <!-- /.content -->
+</div>
+
+
