@@ -160,5 +160,23 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");
+
+    @if (TempData["errorUpdating"] != null)
+        {
+            <script type="text/javascript">
+                window.onload = function () {
+                    swal("Error!", '@TempData["errorUpdating"]', "error");
+                };
+            </script>
+        }
+
+        @if (TempData["successUpdate"] != null)
+        {
+            <script type="text/javascript">
+                window.onload = function () {
+                    swal("Congrats!", '@TempData["successUpdate"]', "success");
+                };
+            </script>
+        }
     }
 }

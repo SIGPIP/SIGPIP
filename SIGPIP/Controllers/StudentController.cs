@@ -189,33 +189,44 @@ namespace SIGPIP.Controllers
         [HttpPost]
         public IActionResult UpdateStudent(Guid studentId, StudentModel student1)
         {
-            StudentModel studentModel = _databaseContext.Student.FirstOrDefault(student => student.studentId == studentId);
-            if (studentModel!=null)
+                StudentModel studentModel = _databaseContext.Student.FirstOrDefault(student => student.studentId == studentId);
+                if (studentModel!=null){
+                    try
+                    {
+                        studentModel.studentNames = student1.studentNames;
+                        studentModel.studentLastNames = student1.studentLastNames;
+                        studentModel.studentCountry = student1.studentCountry;
+                        studentModel.studentCareer = student1.studentCareer;
+                        studentModel.studentBio = student1.studentBio;
+                        studentModel.studentSemester = student1.studentSemester;
+                        _databaseContext.Student.Update(studentModel);
+                        _databaseContext.SaveChanges();
+                        HttpContext.Session.SetString("studentIdLogged", studentModel.studentId.ToString());
+                        HttpContext.Session.SetString("studentName", studentModel.studentNames);
+                        HttpContext.Session.SetString("studentLastName", studentModel.studentLastNames);
+                        HttpContext.Session.SetString("studentCountry", studentModel.studentCountry);
+                        HttpContext.Session.SetString("studentCareer", studentModel.studentCareer);
+                        HttpContext.Session.SetString("studentSemester", studentModel.studentSemester.ToString());
+                        HttpContext.Session.SetString("studentEmail", studentModel.studentEmail);
+                        if (studentModel.studentBio != null)
+                        {
+                            HttpContext.Session.SetString("studentBio", studentModel.studentBio);
+                        }
+                        else
+                        {
+                            HttpContext.Session.SetString("studentBio", "");
+                        }
+                        HttpContext.Session.SetString("loggedIn", "logged");
+                        TempData["successUpdate"] = "Personal Information updated successfully!";
+                    }
+                catch (Exception ex)
+                {
+                    TempData["errorUpdating"] = ex;
+                }
+            }
+            else
             {
-                studentModel.studentNames = student1.studentNames;
-                studentModel.studentLastNames = student1.studentLastNames;
-                studentModel.studentCountry = student1.studentCountry;
-                studentModel.studentCareer = student1.studentCareer;
-                studentModel.studentBio = student1.studentBio;
-                studentModel.studentSemester = student1.studentSemester;
-                _databaseContext.Student.Update(studentModel);
-                _databaseContext.SaveChanges();
-                HttpContext.Session.SetString("studentIdLogged", studentModel.studentId.ToString());
-                HttpContext.Session.SetString("studentName", studentModel.studentNames);
-                HttpContext.Session.SetString("studentLastName", studentModel.studentLastNames);
-                HttpContext.Session.SetString("studentCountry", studentModel.studentCountry);
-                HttpContext.Session.SetString("studentCareer", studentModel.studentCareer);
-                HttpContext.Session.SetString("studentSemester", studentModel.studentSemester.ToString());
-                HttpContext.Session.SetString("studentEmail", studentModel.studentEmail);
-                if (studentModel.studentBio != null)
-                {
-                    HttpContext.Session.SetString("studentBio", studentModel.studentBio);
-                }
-                else
-                {
-                    HttpContext.Session.SetString("studentBio", "");
-                }
-                HttpContext.Session.SetString("loggedIn", "logged");
+                TempData["errorUpdating"] = "Personal Information could not be updated";
             }
             return RedirectToAction("Portfolio");
         }
@@ -257,7 +268,7 @@ namespace SIGPIP.Controllers
         {
             if (LoggedInVerify() == false)
             {
-                return RedirectToAction("Home");
+                return RedirectToAction("Login");
             }
             else
             {
