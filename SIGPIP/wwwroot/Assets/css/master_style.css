@@ -532,7 +532,7 @@ a:active, a:focus, a:hover {
     position: relative;
     width: 100%;
     padding: 10px 0 10px;
-    background-image: url(../../images//user-info.jpg);
+    background-image: url(/Assets/images/user-info.jpg);
 }
 .user-panel:after, .user-panel:before {
     content: " ";
@@ -611,7 +611,7 @@ a:active, a:focus, a:hover {
     margin: 15px 0;
 }
 .user-profile {
-    background-image:url(../../images//user-info.jpg);
+    background-image: url(/Assets/images/user-info.jpg);
 }
 .sidebar-menu .user-profile > a img {
     width: 30px;
