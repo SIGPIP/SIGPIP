@@ -37,6 +37,7 @@ namespace SIGPIP.Controllers
             {
                 ViewBag.studentName = HttpContext.Session.GetString("studentName");
                 ViewBag.studentIdLogged = HttpContext.Session.GetString("studentIdLogged");
+                ViewBag.studentEmail = HttpContext.Session.GetString("studentEmail");
                 return View();
             }
         }
@@ -68,6 +69,19 @@ namespace SIGPIP.Controllers
             {
                 HttpContext.Session.SetString("studentIdLogged", studentLoggedIn.studentId.ToString());
                 HttpContext.Session.SetString("studentName", studentLoggedIn.studentNames);
+                HttpContext.Session.SetString("studentLastName", studentLoggedIn.studentLastNames);
+                HttpContext.Session.SetString("studentCountry", studentLoggedIn.studentCountry);
+                HttpContext.Session.SetString("studentCareer", studentLoggedIn.studentCareer);
+                HttpContext.Session.SetString("studentSemester", studentLoggedIn.studentSemester.ToString());
+                HttpContext.Session.SetString("studentEmail", studentLoggedIn.studentEmail);
+                if(studentLoggedIn.studentBio != null)
+                {
+                    HttpContext.Session.SetString("studentBio", studentLoggedIn.studentBio);
+                }
+                else
+                {
+                    HttpContext.Session.SetString("studentBio", "");
+                }
                 HttpContext.Session.SetString("loggedIn", "logged");
                 return RedirectToAction("Home");
             }
@@ -157,39 +171,64 @@ namespace SIGPIP.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
-        [HttpPut]
-        public IActionResult UpdateStudent(Guid studentId ,[FromBody] StudentModel student)
+        public IActionResult UpdateStudent(Guid studentId)
         {
-            try
+            if(studentId == null)
             {
+                return (NotFound());
+            }
+            var student = _databaseContext.Student.Find(studentId);
+            if (student == null)
+            {
+                return NotFound();
+            }
+
+            return View(student);
+        }
+
+        [HttpPost]
+        public IActionResult UpdateStudent(Guid studentId, StudentModel student1)
+        {
                 StudentModel studentModel = _databaseContext.Student.FirstOrDefault(student => student.studentId == studentId);
-
-                if(studentModel != null)
+                if (studentModel!=null){
+                    try
+                    {
+                        studentModel.studentNames = student1.studentNames;
+                        studentModel.studentLastNames = student1.studentLastNames;
+                        studentModel.studentCountry = student1.studentCountry;
+                        studentModel.studentCareer = student1.studentCareer;
+                        studentModel.studentBio = student1.studentBio;
+                        studentModel.studentSemester = student1.studentSemester;
+                        _databaseContext.Student.Update(studentModel);
+                        _databaseContext.SaveChanges();
+                        HttpContext.Session.SetString("studentIdLogged", studentModel.studentId.ToString());
+                        HttpContext.Session.SetString("studentName", studentModel.studentNames);
+                        HttpContext.Session.SetString("studentLastName", studentModel.studentLastNames);
+                        HttpContext.Session.SetString("studentCountry", studentModel.studentCountry);
+                        HttpContext.Session.SetString("studentCareer", studentModel.studentCareer);
+                        HttpContext.Session.SetString("studentSemester", studentModel.studentSemester.ToString());
+                        HttpContext.Session.SetString("studentEmail", studentModel.studentEmail);
+                        if (studentModel.studentBio != null)
+                        {
+                            HttpContext.Session.SetString("studentBio", studentModel.studentBio);
+                        }
+                        else
+                        {
+                            HttpContext.Session.SetString("studentBio", "");
+                        }
+                        HttpContext.Session.SetString("loggedIn", "logged");
+                        TempData["successUpdate"] = "Personal Information updated successfully!";
+                    }
+                catch (Exception ex)
                 {
-                    studentModel.studentId = studentId;
-                    studentModel.studentNames = student.studentNames;
-                    studentModel.studentLastNames = student.studentLastNames;
-                    studentModel.studentCountry = student.studentCountry;
-                    studentModel.studentCareer = student.studentCareer;
-                    studentModel.studentBio = student.studentBio;
-                    studentModel.studentSemester= student.studentSemester;
-
-                    _databaseContext.Student.Update(studentModel);
-                    _databaseContext.SaveChanges();
-                    return Ok(studentModel);
-
-                }
-                else
-                {
-                    return NotFound("Estudiante no encontrado");
-
+                    TempData["errorUpdating"] = ex;
                 }
             }
-            catch (Exception ex)
+            else
             {
-                return BadRequest(ex.Message);
+                TempData["errorUpdating"] = "Personal Information could not be updated";
             }
+            return RedirectToAction("Portfolio");
         }
 
         [HttpDelete]
@@ -222,6 +261,27 @@ namespace SIGPIP.Controllers
         {
             HttpContext.Session.Clear();
             return RedirectToAction("Login");
+        }
+
+        [HttpGet]
+        public IActionResult Portfolio()
+        {
+            if (LoggedInVerify() == false)
+            {
+                return RedirectToAction("Login");
+            }
+            else
+            {
+                ViewBag.studentName = HttpContext.Session.GetString("studentName");
+                ViewBag.studentIdLogged = HttpContext.Session.GetString("studentIdLogged");
+                ViewBag.studentLastName = HttpContext.Session.GetString("studentLastName");
+                ViewBag.studentCountry = HttpContext.Session.GetString("studentCountry");
+                ViewBag.studentCareer = HttpContext.Session.GetString("studentCareer");
+                ViewBag.studentSemester = HttpContext.Session.GetString("studentSemester");
+                ViewBag.studentEmail = HttpContext.Session.GetString("studentEmail");
+                ViewBag.studentBio = HttpContext.Session.GetString("studentBio");
+                return View();
+            }
         }
 
     }
