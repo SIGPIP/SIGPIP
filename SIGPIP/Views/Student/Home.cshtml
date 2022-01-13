@@ -1,0 +1,14 @@
+﻿@model SIGPIP.Models.StudentModel
+
+@{
+    ViewData["Title"] = "Home";
+}
+
+<h1>Home</h1>
+
+<p>Welcome! @ViewBag.studentName</p>
+<p>Yout ID is: @ViewBag.studentIdLogged</p>
+
+<div>
+    <a asp-action="Logout">Logout</a>
+</div>

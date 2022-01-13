@@ -10,8 +10,8 @@ using SIGPIP.Context;
 namespace SIGPIP.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20211226220404_DatabaseMigrationTwo")]
-    partial class DatabaseMigrationTwo
+    [Migration("20220104161448_DatabaseMigration")]
+    partial class DatabaseMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -203,6 +203,10 @@ namespace SIGPIP.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("studentConfirmPassword")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("studentCountry")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -216,6 +220,10 @@ namespace SIGPIP.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("studentNames")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("studentPassword")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

@@ -3,60 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SIGPIP.Migrations
 {
-    public partial class DatabaseMigrationTwo : Migration
+    public partial class DatabaseMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AlterColumn<string>(
-                name: "studentNames",
-                table: "Student",
-                type: "nvarchar(max)",
-                nullable: false,
-                defaultValue: "",
-                oldClrType: typeof(string),
-                oldType: "nvarchar(max)",
-                oldNullable: true);
-
-            migrationBuilder.AlterColumn<string>(
-                name: "studentLastNames",
-                table: "Student",
-                type: "nvarchar(max)",
-                nullable: false,
-                defaultValue: "",
-                oldClrType: typeof(string),
-                oldType: "nvarchar(max)",
-                oldNullable: true);
-
-            migrationBuilder.AlterColumn<string>(
-                name: "studentEmail",
-                table: "Student",
-                type: "nvarchar(max)",
-                nullable: false,
-                defaultValue: "",
-                oldClrType: typeof(string),
-                oldType: "nvarchar(max)",
-                oldNullable: true);
-
-            migrationBuilder.AlterColumn<string>(
-                name: "studentCountry",
-                table: "Student",
-                type: "nvarchar(max)",
-                nullable: false,
-                defaultValue: "",
-                oldClrType: typeof(string),
-                oldType: "nvarchar(max)",
-                oldNullable: true);
-
-            migrationBuilder.AlterColumn<string>(
-                name: "studentCareer",
-                table: "Student",
-                type: "nvarchar(max)",
-                nullable: false,
-                defaultValue: "",
-                oldClrType: typeof(string),
-                oldType: "nvarchar(max)",
-                oldNullable: true);
-
             migrationBuilder.CreateTable(
                 name: "Category",
                 columns: table => new
@@ -162,6 +112,26 @@ namespace SIGPIP.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Student",
+                columns: table => new
+                {
+                    studentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    studentNames = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    studentLastNames = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    studentEmail = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    studentPassword = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    studentConfirmPassword = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    studentBio = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    studentCareer = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    studentSemester = table.Column<int>(type: "int", nullable: false),
+                    studentCountry = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Student", x => x.studentId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Study",
                 columns: table => new
                 {
@@ -216,50 +186,13 @@ namespace SIGPIP.Migrations
                 name: "Reference");
 
             migrationBuilder.DropTable(
+                name: "Student");
+
+            migrationBuilder.DropTable(
                 name: "Study");
 
             migrationBuilder.DropTable(
                 name: "University");
-
-            migrationBuilder.AlterColumn<string>(
-                name: "studentNames",
-                table: "Student",
-                type: "nvarchar(max)",
-                nullable: true,
-                oldClrType: typeof(string),
-                oldType: "nvarchar(max)");
-
-            migrationBuilder.AlterColumn<string>(
-                name: "studentLastNames",
-                table: "Student",
-                type: "nvarchar(max)",
-                nullable: true,
-                oldClrType: typeof(string),
-                oldType: "nvarchar(max)");
-
-            migrationBuilder.AlterColumn<string>(
-                name: "studentEmail",
-                table: "Student",
-                type: "nvarchar(max)",
-                nullable: true,
-                oldClrType: typeof(string),
-                oldType: "nvarchar(max)");
-
-            migrationBuilder.AlterColumn<string>(
-                name: "studentCountry",
-                table: "Student",
-                type: "nvarchar(max)",
-                nullable: true,
-                oldClrType: typeof(string),
-                oldType: "nvarchar(max)");
-
-            migrationBuilder.AlterColumn<string>(
-                name: "studentCareer",
-                table: "Student",
-                type: "nvarchar(max)",
-                nullable: true,
-                oldClrType: typeof(string),
-                oldType: "nvarchar(max)");
         }
     }
 }
