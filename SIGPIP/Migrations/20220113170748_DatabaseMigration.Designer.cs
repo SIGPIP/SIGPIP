@@ -10,7 +10,7 @@ using SIGPIP.Context;
 namespace SIGPIP.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20220104161448_DatabaseMigration")]
+    [Migration("20220113170748_DatabaseMigration")]
     partial class DatabaseMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -81,9 +81,6 @@ namespace SIGPIP.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<Guid>("categoryId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("habilityName")
                         .IsRequired()
@@ -239,6 +236,9 @@ namespace SIGPIP.Migrations
                 {
                     b.Property<Guid>("studyId")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("studentId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("studyCity")

@@ -3,12 +3,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SIGPIP.Models
 {
-    public class HabilityModel
+    public class StudentHabilityModel
     {
         [Key]
         [Required]
+        public Guid studentId { get; set; }
+        [Key]
+        [Required] 
         public int habilityId { get; set; }
-        [Required]
-        public string habilityName { get; set; }
     }
 }

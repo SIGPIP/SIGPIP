@@ -1,6 +1,4 @@
 ﻿@model SIGPIP.Models.StudentModel
-
-
 @{
     ViewData["Title"] = "Portfolio";
     Layout = "~/Views/Shared/_LayoutPortfolio.cshtml";
@@ -26,7 +24,6 @@
         <div class="box">
             <div class="box-header with-border">
                 <h3 class="box-title">Personal Information</h3>
-                <button id="btn" class="btn" onclick = 'frm.disabled = !frm.disabled; cancel.hidden = !cancel.hidden; submit.hidden = !submit.hidden; btn.hidden=!btn.hidden;'> <i class="fas fa-pencil-alt"></i></button>
                 <ul class="box-controls pull-right">
                     <li><a class="box-btn-slide" href="#"></a></li>
                 </ul>
@@ -56,7 +53,6 @@
                                 <label asp-for="studentCountry" class="control-label">Where are you from?</label>
                                 <input asp-for="studentCountry" class="form-control" value=@ViewBag.studentCountry/>
                                 <span asp-validation-for="studentCountry" class="text-danger"></span>
-                                
                             </div>
                         </div>
                     </div>
@@ -103,11 +99,27 @@
                     </div>
                     </fieldset>
                 </form>
+                <div class="col-auto">
+                    <input  type="button" value="Edit" id="btn"  class="btn btn-outline-dark"  onclick = 'frm.disabled = !frm.disabled; cancel.hidden = !cancel.hidden; submit.hidden = !submit.hidden; btn.hidden=!btn.hidden;' />                </div>
             </div>
 
             <!-- /.box-footer-->
         </div>
         <!-- /.box -->
+
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title">Education</h3>
+                <ul class="box-controls pull-right">
+                    <li><a class="box-btn-slide" href="#"></a></li>
+                </ul>
+            </div>
+            <div class="box-body">
+                <div class="col-12">
+                    @Html.Partial("../Study/GetStudy")
+                </div> 
+            </div>
+       </div>
 
         <div class="box">
             <div class="box-header with-border">
@@ -146,7 +158,7 @@
 
         <div class="box">
             <div class="box-header with-border">
-                <h3 class="box-title">Favorite Projects</h3>
+                <h3 class="box-title">Projects</h3>
 
                 <ul class="box-controls pull-right">
                     <li><a class="box-btn-slide" href="#"></a></li>
@@ -175,6 +187,59 @@
             <script type="text/javascript">
                 window.onload = function () {
                     swal("Congrats!", '@TempData["successUpdate"]', "success");
+                };
+            </script>
+        }
+        @if (TempData["errorStudyAdd"] != null)
+        {
+            <script type="text/javascript">
+                window.onload = function () {
+                    swal("Error!", '@TempData["errorStudyAdd"]', "error");
+                };
+            </script>
+        }
+
+        @if (TempData["successStudyAdd"] != null)
+        {
+            <script type="text/javascript">
+                window.onload = function () {
+                    swal("Congrats!", '@TempData["successStudyAdd"]', "success");
+                };
+            </script>
+        }
+
+        @if(TempData["successUpdatingStudy"]!=null)
+        {
+            <script type="text/javascript">
+                window.onload = function () {
+                    swal("Congrats!", '@TempData["successUpdatingStudy"]', "success");
+                };
+            </script>
+        }
+
+        @if (TempData["errorUpdatingStudy"] != null)
+        {
+            <script type="text/javascript">
+                window.onload = function () {
+                    swal("Error!", '@TempData["errorUpdatingStudy"]', "error");
+                };
+            </script>
+        }
+
+        @if(TempData["successDeletingStudy"]!=null)
+        {
+            <script type="text/javascript">
+                window.onload = function () {
+                    swal("Congrats!", '@TempData["successDeletingStudy"]', "success");
+                };
+            </script>
+        }
+
+        @if (TempData["errorDeletingStudy"] != null)
+        {
+            <script type="text/javascript">
+                window.onload = function () {
+                    swal("Error!", '@TempData["errorDeletingStudy"]', "error");
                 };
             </script>
         }

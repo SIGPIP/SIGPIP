@@ -24,7 +24,7 @@ namespace SIGPIP.Controllers
 
         public bool LoggedInVerify()
         {
-           return (HttpContext.Session.GetString("loggedIn") == null ? false : true);
+            return (HttpContext.Session.GetString("loggedIn") == null ? false : true);
         }
 
         public IActionResult Home()
@@ -64,7 +64,7 @@ namespace SIGPIP.Controllers
         public IActionResult Login(StudentModel students)
         {
             string studentsHashPass = Encryption.EnryptString(students.studentPassword);
-            var studentLoggedIn = _databaseContext.Student.SingleOrDefault(std => std.studentEmail == students.studentEmail &&  std.studentPassword == studentsHashPass);
+            var studentLoggedIn = _databaseContext.Student.SingleOrDefault(std => std.studentEmail == students.studentEmail && std.studentPassword == studentsHashPass);
             if (studentLoggedIn != null)
             {
                 HttpContext.Session.SetString("studentIdLogged", studentLoggedIn.studentId.ToString());
@@ -74,7 +74,7 @@ namespace SIGPIP.Controllers
                 HttpContext.Session.SetString("studentCareer", studentLoggedIn.studentCareer);
                 HttpContext.Session.SetString("studentSemester", studentLoggedIn.studentSemester.ToString());
                 HttpContext.Session.SetString("studentEmail", studentLoggedIn.studentEmail);
-                if(studentLoggedIn.studentBio != null)
+                if (studentLoggedIn.studentBio != null)
                 {
                     HttpContext.Session.SetString("studentBio", studentLoggedIn.studentBio);
                 }
@@ -148,7 +148,7 @@ namespace SIGPIP.Controllers
                             TempData["errorRegister"] = ex;
                         }
                     }
-                    
+
                 }
             }
             else
@@ -173,7 +173,7 @@ namespace SIGPIP.Controllers
         }
         public IActionResult UpdateStudent(Guid studentId)
         {
-            if(studentId == null)
+            if (studentId == null)
             {
                 return (NotFound());
             }
@@ -189,36 +189,37 @@ namespace SIGPIP.Controllers
         [HttpPost]
         public IActionResult UpdateStudent(Guid studentId, StudentModel student1)
         {
-                StudentModel studentModel = _databaseContext.Student.FirstOrDefault(student => student.studentId == studentId);
-                if (studentModel!=null){
-                    try
+            StudentModel studentModel = _databaseContext.Student.FirstOrDefault(student => student.studentId == studentId);
+            if (studentModel != null)
+            {
+                try
+                {
+                    studentModel.studentNames = student1.studentNames;
+                    studentModel.studentLastNames = student1.studentLastNames;
+                    studentModel.studentCountry = student1.studentCountry;
+                    studentModel.studentCareer = student1.studentCareer;
+                    studentModel.studentBio = student1.studentBio;
+                    studentModel.studentSemester = student1.studentSemester;
+                    _databaseContext.Student.Update(studentModel);
+                    _databaseContext.SaveChanges();
+                    HttpContext.Session.SetString("studentIdLogged", studentModel.studentId.ToString());
+                    HttpContext.Session.SetString("studentName", studentModel.studentNames);
+                    HttpContext.Session.SetString("studentLastName", studentModel.studentLastNames);
+                    HttpContext.Session.SetString("studentCountry", studentModel.studentCountry);
+                    HttpContext.Session.SetString("studentCareer", studentModel.studentCareer);
+                    HttpContext.Session.SetString("studentSemester", studentModel.studentSemester.ToString());
+                    HttpContext.Session.SetString("studentEmail", studentModel.studentEmail);
+                    if (studentModel.studentBio != null)
                     {
-                        studentModel.studentNames = student1.studentNames;
-                        studentModel.studentLastNames = student1.studentLastNames;
-                        studentModel.studentCountry = student1.studentCountry;
-                        studentModel.studentCareer = student1.studentCareer;
-                        studentModel.studentBio = student1.studentBio;
-                        studentModel.studentSemester = student1.studentSemester;
-                        _databaseContext.Student.Update(studentModel);
-                        _databaseContext.SaveChanges();
-                        HttpContext.Session.SetString("studentIdLogged", studentModel.studentId.ToString());
-                        HttpContext.Session.SetString("studentName", studentModel.studentNames);
-                        HttpContext.Session.SetString("studentLastName", studentModel.studentLastNames);
-                        HttpContext.Session.SetString("studentCountry", studentModel.studentCountry);
-                        HttpContext.Session.SetString("studentCareer", studentModel.studentCareer);
-                        HttpContext.Session.SetString("studentSemester", studentModel.studentSemester.ToString());
-                        HttpContext.Session.SetString("studentEmail", studentModel.studentEmail);
-                        if (studentModel.studentBio != null)
-                        {
-                            HttpContext.Session.SetString("studentBio", studentModel.studentBio);
-                        }
-                        else
-                        {
-                            HttpContext.Session.SetString("studentBio", "");
-                        }
-                        HttpContext.Session.SetString("loggedIn", "logged");
-                        TempData["successUpdate"] = "Personal Information updated successfully!";
+                        HttpContext.Session.SetString("studentBio", studentModel.studentBio);
                     }
+                    else
+                    {
+                        HttpContext.Session.SetString("studentBio", "");
+                    }
+                    HttpContext.Session.SetString("loggedIn", "logged");
+                    TempData["successUpdate"] = "Personal Information updated successfully!";
+                }
                 catch (Exception ex)
                 {
                     TempData["errorUpdating"] = ex;
@@ -257,6 +258,29 @@ namespace SIGPIP.Controllers
         }
 
         [HttpGet]
+        public List<StudyModel> GetStudy(String studentId)
+        {
+            Guid _id = new Guid(studentId);
+            try
+            {
+                var list = _databaseContext.Study.ToList();
+                var lst = new List<StudyModel>();
+                for (int i = 0; i < list.Count; i++)
+                {
+                    if (list[i].studentId == _id)
+                    {
+                        lst.Add(list[i]);
+                    }
+                }
+                return (lst);
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        [HttpGet]
         public IActionResult Logout()
         {
             HttpContext.Session.Clear();
@@ -272,6 +296,7 @@ namespace SIGPIP.Controllers
             }
             else
             {
+
                 ViewBag.studentName = HttpContext.Session.GetString("studentName");
                 ViewBag.studentIdLogged = HttpContext.Session.GetString("studentIdLogged");
                 ViewBag.studentLastName = HttpContext.Session.GetString("studentLastName");
@@ -280,9 +305,9 @@ namespace SIGPIP.Controllers
                 ViewBag.studentSemester = HttpContext.Session.GetString("studentSemester");
                 ViewBag.studentEmail = HttpContext.Session.GetString("studentEmail");
                 ViewBag.studentBio = HttpContext.Session.GetString("studentBio");
+                ViewBag.studies = this.GetStudy(HttpContext.Session.GetString("studentIdLogged"));
                 return View();
             }
         }
-
     }
 }

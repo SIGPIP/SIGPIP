@@ -9,12 +9,14 @@ namespace SIGPIP.Models
         [Required]
         public Guid studyId { get; set; }
         [Required]
+        public Guid studentId { get;set; }
+        [Required(ErrorMessage = "Year required")]
         public int studyYear { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Grade required")]
         public string studyGrade { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Name required")]
         public string studyName { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Place required")]
         public string studyPlace { get; set; }
         public string studyCity { get; set; }
         public string studyCountry { get; set; }
