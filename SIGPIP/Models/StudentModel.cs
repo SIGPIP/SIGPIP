@@ -19,6 +19,7 @@ namespace SIGPIP.Models
         public string studentLastNames { get; set; }
         [Required(ErrorMessage = "Email required")]
         [EmailAddress]
+        [RegularExpression(@"^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$", ErrorMessage = "The Email field is not a valid e-mail address")]
         [Display(Name = "Email")]
         public string studentEmail { get; set; }
         [Required(ErrorMessage = "Password required")]
