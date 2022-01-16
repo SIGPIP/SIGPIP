@@ -6,6 +6,52 @@
     Layout = "~/Views/Shared/_LayoutPortfolio.cshtml";
 }
 
+<style>
+    .required:after {
+        content:" *";
+        color: red;
+    }
+
+    .experience-options{
+        position: absolute;
+        bottom: 5%;
+        right: 5%;
+        display: none;
+    }
+
+    .experience-card:hover > .experience-options{
+        display: flex;
+    }
+
+    .experience-delete,
+    .experience-edit{
+        background: #69CFFB;
+        padding: 5px;
+        color: #010101;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-right: 2px;
+        cursor: pointer;
+    }
+
+    .experience-delete{
+        backgrou!importantd: #D33446;
+    }
+
+    @@media only screen and (max-width: 767px){
+        .experience-card-header{
+            border-bottom-left-radius: 0px !important; 
+            border-top-right-radius: 12px !important; 
+        }
+
+        .experience-card-body{
+            border-top-right-radius: 0px !important; 
+            border-bottom-left-radius: 12px !important; 
+        }
+    }
+</style>
+
 <div class="content-wrapper">
     
     <!-- Content Header (Page header) -->
@@ -127,10 +173,100 @@
         <div class="box">
             <div class="box-header with-border">
                 <h3 class="box-title">Work Experience</h3>
-
+                <button onclick="cleanExperienceForm()" class="btn btn-primary" style="background:#EFEFEF; color:#455A64; border: none;" type="button" data-toggle="collapse" data-target="#collapseAddExperience" aria-expanded="false" aria-controls="collapseAddExperience">
+                    <i class="fas fa-plus"></i>
+                </button>
                 <ul class="box-controls pull-right">
                     <li><a class="box-btn-slide" href="#"></a></li>
                 </ul>
+            </div>
+            <div class="box-body">
+                <div class="collapse" id="collapseAddExperience">
+                <br/>
+                  <form asp-controller="Portfolio" asp-action="AddWorkExperience" method="post">
+                      <input type="hidden" asp-for="studentId" value=@ViewBag.studentIdLogged />
+                      <input type="hidden" for="experienceId" name="experienceId" id="experienceId" />
+                      <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="experienceName" class="control-label required">Experience name</label>
+                                <input name="experienceName"  id="experienceName" class="form-control " required/> 
+                                <span validation-for="experienceName" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="experienceEntity" class="control-label required">Entity</label>
+                                <input name="experienceEntity"  id="experienceEntity" class="form-control " required/> 
+                                <span validation-for="experienceEntity" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="experiencePlace" class="control-label required">Place</label>
+                                <input name="experiencePlace"  id="experiencePlace" class="form-control " required/> 
+                                <span validation-for="experiencePlace" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="experienceDescription" class="control-label required">Description</label>
+                                <input name="experienceDescription"  id="experienceDescription" class="form-control " type="text" required/> 
+                                <span validation-for="experienceDescription" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="experienceStartDate" class="control-label required">Start date</label>
+                                <input name="experienceStartDate"  id="experienceStartDate" class="form-control " type="date" required/> 
+                                <span validation-for="experienceStartDate" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <br/>
+                      </div>
+                    <div class="row">
+                        <div class="col-auto">
+                            <input type="submit" id="submitExperience" value="Add experience" class="btn btn-success"/>
+                        </div>
+                        <div class="col-auto">
+                            <input type="button" id="cancelExperience" value="Cancel" class="btn btn-outline-dark" data-toggle="collapse" data-target="#collapseAddExperience" aria-expanded="false" aria-controls="collapseAddExperience"/>
+                        </div>
+                    </div>
+                    <br/>
+                  </form>
+                </div>
+                <div class="row mt-2 mx-auto" id="studenExperienceContainer">
+                    @*<div class="row">
+                        <div class="col-2">
+                            <h4>Experience name</h4>
+                            <p>experiencePlace</p>
+                            <p>experienceEntity</p>
+                            <p>experienceStartDate</p>
+                        </div>
+                        <div class="col-10">
+                            <p>experienceDescription</p>
+                        </div>
+                    </div>*@
+                </div>
+                <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="confirmationModalLabel">Delete experience</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        ¿Are you sure you want to delete this experience?
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" id="cancelExperience" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-danger" id="deleteExperience">Delete</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
             </div>
         </div>
 
@@ -179,4 +315,89 @@
             </script>
         }
     }
+
+    <script>
+        var studentId = '@(ViewBag.studentIdLogged)';
+        var experienceToDelete = -1;
+        
+        $('#studenExperienceContainer').ready(
+            function(){
+                $.ajax({
+                    type: 'GET',
+                    url: '/Portfolio/GetWorkExperience',
+                    data: { studentId: studentId},
+                    success: function(experience){
+                        for(var i = 0; i < experience.length; i++){
+                            var container = document.getElementById('studenExperienceContainer');
+                            var containerContent = container.innerHTML;
+                            var experienceCard = '<div class="row mt-2 col-lg-6 experience-card"><div class="col-md-4 experience-card-header" style="background: #69CFFB;color: #010101;padding: 10px;border-top-left-radius: 12px;border-bottom-left-radius: 12px;"><h4 style="margin-bottom: 0;">'+experience[i].experienceName+'</h4><p style="margin-bottom: 0;">'+experience[i].experiencePlace+'</p><p style="margin-bottom: 0;">'+experience[i].experienceEntity+'</p><p style="margin-bottom: 0;">'+experience[i].experienceStartDate.substring(0, 10)+'</p></div><div class="col-md-8 experience-card-body" style="padding: 10px;color: #010101;box-shadow: rgb(0 0 0 / 10%) 0px 0px 5px 0px, rgb(0 0 0 / 10%) 0px 0px 1px 0px;border-top-right-radius: 12px;border-bottom-right-radius: 12px;"><p>'+experience[i].experienceDescription+'</p></div><div class="experience-options"><button class="experience-edit" data-toggle="collapse" data-target="#collapseAddExperience" aria-controls="collapseAddExperience"><i class="fas fa-pen"><div style="display: none;">'+experience[i].experienceId+'</div></i></button><button class="experience-delete"><i class="fas fa-trash"><div style="display: none;">'+experience[i].experienceId+'</div></i></button></div></div>';
+                            container.innerHTML = containerContent + experienceCard;
+                        }
+
+                        var deleteExperience = document.getElementsByClassName('experience-delete');
+
+                        for(var i = 0; i < deleteExperience.length; i++){
+                            deleteExperience[i].addEventListener('click', function (event) {
+                                experienceToDelete = event.target.firstChild.innerText;
+
+                                $('#confirmationModal').modal('show');
+
+                                $('#deleteExperience').on('click', function(event) {
+                                    var experienceid = experienceToDelete;
+                                    console.log(experienceid);
+                                    $.ajax({
+                                        type: 'delete',
+                                        url: '/portfolio/deleteworkexperience',
+                                        data: { experienceid: experienceid},
+                                        success: function(){
+                                            window.location.reload();
+                                        }
+                                    })
+                                });
+
+                                $('#cancelExperience').on('click', function(event) {
+                                    experienceToDelete = -1;
+                                });
+                            });
+                        }
+
+                        var editExperience = document.getElementsByClassName('experience-edit');
+
+                        for(var i = 0; i < editExperience.length; i++){
+                            editExperience[i].addEventListener('click', function (event) {
+                                experienceId = event.target.querySelector('div').innerHTML;
+                                
+                                $.ajax({
+                                    type: 'GET',
+                                    url: '/Portfolio/GetSingleWorkExperience',
+                                    data: { experienceId: experienceId},
+                                    success: function(experience){
+                                        document.getElementById('experienceId').setAttribute('value',experience.experienceId); 
+                                        document.getElementById('experienceName').setAttribute('value',experience.experienceName); 
+                                        document.getElementById('experienceEntity').setAttribute('value',experience.experienceEntity); 
+                                        document.getElementById('experiencePlace').setAttribute('value',experience.experiencePlace); 
+                                        document.getElementById('experienceDescription').setAttribute('value',experience.experienceDescription); 
+                                        document.getElementById('experienceStartDate').setAttribute('value',experience.experienceStartDate.substring(0, 10)); 
+                                        
+                                    }
+                                });
+                            });
+                        }
+                    }
+                });
+
+            }
+
+        )
+
+        function cleanExperienceForm(){
+            document.getElementById('experienceId').setAttribute('value',''); 
+            document.getElementById('experienceName').setAttribute('value',''); 
+            document.getElementById('experienceEntity').setAttribute('value',''); 
+            document.getElementById('experiencePlace').setAttribute('value',''); 
+            document.getElementById('experienceDescription').setAttribute('value',''); 
+            document.getElementById('experienceStartDate').setAttribute('value',''); 
+        }
+
+    </script>
 }
