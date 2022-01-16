@@ -1,0 +1,128 @@
+﻿@model SIGPIP.Models.StudyModel
+
+@{
+    ViewData["Title"] = "GetStudy";
+}
+
+<table class="table" col-12>
+    <thead>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Grade
+            </th>
+            <th>
+                Year
+            </th>
+            <th>
+                Place
+            </th>
+            <th>
+                Country
+            </th>
+            <th>
+                City
+            </th>
+        </tr>
+    </thead>
+   <tbody>
+    @foreach (StudyModel item in @ViewBag.studies)
+    {
+        <tr>
+            <td>
+                @item.studyName
+            </td>
+            <td>
+                @item.studyGrade
+            </td>
+            <td>
+                @item.studyYear
+            </td>
+            <td>
+                @item.studyPlace
+            </td>
+            <td>
+                @item.studyCountry
+            </td>
+            <td>
+                @item.studyCity
+            </td>
+            <td align="right">
+                <button type="button" class="btn btn-outline-primary" onclick="newBtn.hidden=false; AddBtn.value='Edit'; addForm.hidden=false; edit.hidden=true; studyId.value='@item.studyId'; studyName.value='@item.studyName'; studyGrade.value='@item.studyGrade'; studyYear.value='@item.studyYear'; studyPlace.value='@item.studyPlace'; studyCountry.value='@item.studyCountry'; studyCity.value='@item.studyCity'">Edit</button>
+                <a type="button" class="btn btn-outline-danger" asp-action="DeleteStudy" asp-route-studyId="@item.studyId" asp-controller="Study">Delete</a>
+            </td>   
+        </tr>
+    }
+    </tbody>
+ </table>
+    <form asp-controller="Study" asp-action="AddStudy" id="addForm" hidden method="post">
+    <div asp-validation-summary="ModelOnly"  class="text-danger"></div>
+    <input type="hidden" asp-for="studyId" id="studyId" />
+    <input type="hidden" asp-for="studentId" value=@ViewBag.studentIdLogged />
+    <div class="row">
+        <div class="col-4">
+            <div class="form-group">
+                <label asp-for="studyName" class="control-label">Name*</label>
+                <input asp-for="studyName" class="form-control" id="studyName" />
+                <span asp-validation-for="studyName" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-group">
+                <label asp-for="studyGrade" class="control-label">Grade*</label>
+                <input asp-for="studyGrade" class="form-control" id="studyGrade" />
+                <span asp-validation-for="studyGrade" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-group">
+                <label asp-for="studyYear" class="control-label">Year*</label>
+                <input asp-for="studyYear" class="form-control" id="studyYear"/>
+                <span asp-validation-for="studyYear" class="text-danger"></span>
+            </div>
+        </div>    
+    </div>
+    <div class="row">
+        <div class="col-4">
+            <div class="form-group">
+                <label asp-for="studyPlace" class="control-label">Place*</label>
+                <input asp-for="studyPlace" class="form-control" id="studyPlace" />
+                <span asp-validation-for="studyPlace" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-group">
+                <label asp-for="studyCountry" class="control-label">Country</label>
+                <input asp-for="studyCountry" class="form-control" id="studyCountry"/>
+                <span asp-validation-for="studyCountry" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-group">
+                <label asp-for="studyCity" class="control-label">City</label>
+                <input asp-for="studyCity" class="form-control" id="studyCity"/>
+                <span asp-validation-for="studyCity" class="text-danger"></span>
+                
+            </div>
+        </div>
+    </div>
+    <div>
+        <p>Text area with * are mandatory</p>
+    </div>
+    <div class="row justify-content-between">
+        <div class="col-auto mr-auto">
+            <input type="submit" value="Add" id="AddBtn" class="btn btn-outline-success" />
+        </div>
+        <div class="col-auto mr-auto">
+            <input type="button" value="Add New" hidden id="newBtn" class="btn btn-outline-primary" onclick="newBtn.hidden=true; AddBtn.value='Add'; studyId.value=''; studyName.value=''; studyGrade.value=''; studyYear.value=''; studyPlace.value=''; studyCountry.value=''; studyCity.value='';" />
+        </div>
+        <div class="col-auto">
+            <input type="button" id="cancel" value="Cancel" class="btn btn-outline-dark" onclick="window.location.reload()"/>
+        </div>
+   </div>
+</form>
+<div class="col-auto">
+            <input type="button" id="edit" value="Add" class="btn btn-outline-dark" onclick="addForm.hidden=false; edit.hidden=!edit.hidden;"/>
+</div>

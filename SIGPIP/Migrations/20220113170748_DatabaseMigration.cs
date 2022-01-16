@@ -44,8 +44,7 @@ namespace SIGPIP.Migrations
                 {
                     habilityId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    habilityName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    categoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    habilityName = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -136,6 +135,7 @@ namespace SIGPIP.Migrations
                 columns: table => new
                 {
                     studyId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    studentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     studyYear = table.Column<int>(type: "int", nullable: false),
                     studyGrade = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     studyName = table.Column<string>(type: "nvarchar(max)", nullable: false),

@@ -84,9 +84,6 @@ namespace SIGPIP.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<Guid>("categoryId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("habilityName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -241,6 +238,9 @@ namespace SIGPIP.Migrations
                 {
                     b.Property<Guid>("studyId")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("studentId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("studyCity")
