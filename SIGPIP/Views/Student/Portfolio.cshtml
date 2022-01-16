@@ -338,8 +338,8 @@
 
                         for(var i = 0; i < deleteExperience.length; i++){
                             deleteExperience[i].addEventListener('click', function (event) {
-                                experienceToDelete = event.target.firstChild.innerText;
-
+                                experienceToDelete = event.target.querySelector('div').innerHTML;;
+                                console.log(experienceToDelete);
                                 $('#confirmationModal').modal('show');
 
                                 $('#deleteExperience').on('click', function(event) {
