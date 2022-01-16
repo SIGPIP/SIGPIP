@@ -7,6 +7,8 @@ namespace SIGPIP.Models
     {
         [Key]
         [Required]
+        public int experienceId { get; set; }
+        [Required]
         public Guid studentId { get; set; }
         [Required]
         public string experienceName { get; set; }
@@ -18,7 +20,6 @@ namespace SIGPIP.Models
         public string experienceDescription { get; set; }
         [Required]
         public DateTime experienceStartDate { get; set; }
-        [Required]
         public DateTime experienceEndDate { get; set; }
 
     }

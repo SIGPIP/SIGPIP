@@ -83,6 +83,7 @@ namespace SIGPIP.Controllers
                     HttpContext.Session.SetString("studentBio", "");
                 }
                 HttpContext.Session.SetString("loggedIn", "logged");
+
                 return RedirectToAction("Home");
             }
             else
