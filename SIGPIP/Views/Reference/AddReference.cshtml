@@ -1,0 +1,50 @@
+﻿@model SIGPIP.Models.ReferenceModel
+
+@{
+    ViewData["Title"] = "AddReference";
+}
+
+<h1>AddReference</h1>
+
+<h4>ReferenceModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AddReference">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="studentId" class="control-label"></label>
+                <input asp-for="studentId" class="form-control" />
+                <span asp-validation-for="studentId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="referenceName" class="control-label"></label>
+                <input asp-for="referenceName" class="form-control" />
+                <span asp-validation-for="referenceName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="referenceAgent" class="control-label"></label>
+                <input asp-for="referenceAgent" class="form-control" />
+                <span asp-validation-for="referenceAgent" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="referencePhone" class="control-label"></label>
+                <input asp-for="referencePhone" class="form-control" />
+                <span asp-validation-for="referencePhone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="referenceCompany" class="control-label"></label>
+                <input asp-for="referenceCompany" class="form-control" />
+                <span asp-validation-for="referenceCompany" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

@@ -165,7 +165,7 @@ namespace SIGPIP.Migrations
 
             modelBuilder.Entity("SIGPIP.Models.ReferenceModel", b =>
                 {
-                    b.Property<Guid>("studentId")
+                    b.Property<Guid>("referenceId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -184,7 +184,10 @@ namespace SIGPIP.Migrations
                     b.Property<int>("referencePhone")
                         .HasColumnType("int");
 
-                    b.HasKey("studentId");
+                    b.Property<Guid>("studentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("referenceId");
 
                     b.ToTable("Reference");
                 });

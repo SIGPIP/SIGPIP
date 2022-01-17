@@ -25,6 +25,8 @@ namespace SIGPIP.Migrations
                 name: "Experience",
                 columns: table => new
                 {
+                    experienceId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     studentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     experienceName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     experienceEntity = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -35,7 +37,7 @@ namespace SIGPIP.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Experience", x => x.studentId);
+                    table.PrimaryKey("PK_Experience", x => x.experienceId);
                 });
 
             migrationBuilder.CreateTable(
@@ -99,6 +101,7 @@ namespace SIGPIP.Migrations
                 name: "Reference",
                 columns: table => new
                 {
+                    referenceId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     studentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     referenceName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     referenceAgent = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -107,7 +110,7 @@ namespace SIGPIP.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Reference", x => x.studentId);
+                    table.PrimaryKey("PK_Reference", x => x.referenceId);
                 });
 
             migrationBuilder.CreateTable(

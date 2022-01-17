@@ -284,11 +284,15 @@
 
         <div class="box">
             <div class="box-header with-border">
-                <h3 class="box-title">Your Licenses and Certifications</h3>
-
+                <h3 class="box-title">References</h3>
                 <ul class="box-controls pull-right">
                     <li><a class="box-btn-slide" href="#"></a></li>
                 </ul>
+            </div>
+            <div class="box-body">
+                <div class="col-12">
+                    @Html.Partial("../Reference/GetReference")
+                </div> 
             </div>
         </div>
 
@@ -379,6 +383,61 @@
                 };
             </script>
         }
+        
+        @if (TempData["errorReferenceAdd"] != null)
+        {
+            <script type="text/javascript">
+                window.onload = function () {
+                    swal("Error!", '@TempData["errorReferenceAdd"]', "error");
+                };
+            </script>
+        }
+
+        @if (TempData["successReferenceAdd"] != null)
+        {
+            <script type="text/javascript">
+                window.onload = function () {
+                    swal("Congrats!", '@TempData["successReferenceAdd"]', "success");
+                };
+            </script>
+        }
+
+        @if(TempData["successUpdatingReference"]!=null)
+        {
+            <script type="text/javascript">
+                window.onload = function () {
+                    swal("Congrats!", '@TempData["successUpdatingReference"]', "success");
+                };
+            </script>
+        }
+
+        @if (TempData["errorUpdatingReference"] != null)
+        {
+            <script type="text/javascript">
+                window.onload = function () {
+                    swal("Error!", '@TempData["errorUpdatingReference"]', "error");
+                };
+            </script>
+        }
+
+        @if(TempData["successDeletingReference"]!=null)
+        {
+            <script type="text/javascript">
+                window.onload = function () {
+                    swal("Congrats!", '@TempData["successDeletingReference"]', "success");
+                };
+            </script>
+        }
+
+        @if (TempData["errorDeletingReference"] != null)
+        {
+            <script type="text/javascript">
+                window.onload = function () {
+                    swal("Error!", '@TempData["errorDeletingReference"]', "error");
+                };
+            </script>
+        }
+
     }
 
     <script>

@@ -49,7 +49,7 @@
             <td>
                 @item.studyCity
             </td>
-            <td align="right">
+            <td align="right" style="max-width: 4rem;">
                 <button type="button" class="btn btn-outline-primary" onclick="newBtn.hidden=false; AddBtn.value='Edit'; addForm.hidden=false; edit.hidden=true; studyId.value='@item.studyId'; studyName.value='@item.studyName'; studyGrade.value='@item.studyGrade'; studyYear.value='@item.studyYear'; studyPlace.value='@item.studyPlace'; studyCountry.value='@item.studyCountry'; studyCity.value='@item.studyCity'">Edit</button>
                 <a type="button" class="btn btn-outline-danger" asp-action="DeleteStudy" asp-route-studyId="@item.studyId" asp-controller="Study">Delete</a>
             </td>   
@@ -64,21 +64,21 @@
     <div class="row">
         <div class="col-4">
             <div class="form-group">
-                <label asp-for="studyName" class="control-label">Name*</label>
+                <label asp-for="studyName" class="control-label required">Name</label>
                 <input asp-for="studyName" class="form-control" id="studyName" />
                 <span asp-validation-for="studyName" class="text-danger"></span>
             </div>
         </div>
         <div class="col-4">
             <div class="form-group">
-                <label asp-for="studyGrade" class="control-label">Grade*</label>
+                <label asp-for="studyGrade" class="control-label required">Grade</label>
                 <input asp-for="studyGrade" class="form-control" id="studyGrade" />
                 <span asp-validation-for="studyGrade" class="text-danger"></span>
             </div>
         </div>
         <div class="col-4">
             <div class="form-group">
-                <label asp-for="studyYear" class="control-label">Year*</label>
+                <label asp-for="studyYear" class="control-label required">Year</label>
                 <input asp-for="studyYear" class="form-control" id="studyYear"/>
                 <span asp-validation-for="studyYear" class="text-danger"></span>
             </div>
@@ -87,7 +87,7 @@
     <div class="row">
         <div class="col-4">
             <div class="form-group">
-                <label asp-for="studyPlace" class="control-label">Place*</label>
+                <label asp-for="studyPlace" class="control-label required">Place</label>
                 <input asp-for="studyPlace" class="form-control" id="studyPlace" />
                 <span asp-validation-for="studyPlace" class="text-danger"></span>
             </div>
@@ -104,7 +104,6 @@
                 <label asp-for="studyCity" class="control-label">City</label>
                 <input asp-for="studyCity" class="form-control" id="studyCity"/>
                 <span asp-validation-for="studyCity" class="text-danger"></span>
-                
             </div>
         </div>
     </div>
