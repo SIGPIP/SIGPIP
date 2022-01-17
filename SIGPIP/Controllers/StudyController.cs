@@ -122,7 +122,7 @@ namespace SIGPIP.Controllers
                 {
                     _databaseContext.Study.Remove(studyModel);
                     _databaseContext.SaveChanges();
-                    TempData["successDeletingStudy"] = "Study updated successfully!";
+                    TempData["successDeletingStudy"] = "Study deleted successfully!";
                 }
                 else
                 {

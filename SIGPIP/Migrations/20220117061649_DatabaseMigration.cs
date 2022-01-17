@@ -102,15 +102,16 @@ namespace SIGPIP.Migrations
                 name: "Reference",
                 columns: table => new
                 {
+                    referenceId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     studentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     referenceName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     referenceAgent = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    referencePhone = table.Column<int>(type: "int", nullable: false),
+                    referencePhone = table.Column<long>(type: "bigint", nullable: false),
                     referenceCompany = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Reference", x => x.studentId);
+                    table.PrimaryKey("PK_Reference", x => x.referenceId);
                 });
 
             migrationBuilder.CreateTable(

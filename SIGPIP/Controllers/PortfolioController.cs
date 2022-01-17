@@ -167,7 +167,6 @@ namespace SIGPIP.Controllers
                     UpdateHability(hability);
                     return RedirectToAction("Portfolio", "Student");
                 }
-
                 _databaseContext.Hability.Add(hability);
                 _databaseContext.SaveChanges();
                 return RedirectToAction("Portfolio", "Student");

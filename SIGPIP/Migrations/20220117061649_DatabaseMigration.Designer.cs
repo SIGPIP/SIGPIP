@@ -10,7 +10,7 @@ using SIGPIP.Context;
 namespace SIGPIP.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20220117010112_DatabaseMigration")]
+    [Migration("20220117061649_DatabaseMigration")]
     partial class DatabaseMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -170,7 +170,7 @@ namespace SIGPIP.Migrations
 
             modelBuilder.Entity("SIGPIP.Models.ReferenceModel", b =>
                 {
-                    b.Property<Guid>("studentId")
+                    b.Property<Guid>("referenceId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -186,10 +186,13 @@ namespace SIGPIP.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("referencePhone")
-                        .HasColumnType("int");
+                    b.Property<long>("referencePhone")
+                        .HasColumnType("bigint");
 
-                    b.HasKey("studentId");
+                    b.Property<Guid>("studentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("referenceId");
 
                     b.ToTable("Reference");
                 });

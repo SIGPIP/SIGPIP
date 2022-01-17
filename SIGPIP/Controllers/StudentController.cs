@@ -218,8 +218,9 @@ namespace SIGPIP.Controllers
                     studentModel.studentLastNames = student1.studentLastNames;
                     studentModel.studentCountry = student1.studentCountry;
                     studentModel.studentCareer = student1.studentCareer;
-                    studentModel.studentBio = student1.studentBio;
                     studentModel.studentSemester = student1.studentSemester;
+                    studentModel.studentEmail = student1.studentEmail;
+                    studentModel.studentBio = student1.studentBio;
                     _databaseContext.Student.Update(studentModel);
                     _databaseContext.SaveChanges();
                     HttpContext.Session.SetString("studentIdLogged", studentModel.studentId.ToString());
@@ -301,6 +302,29 @@ namespace SIGPIP.Controllers
         }
 
         [HttpGet]
+        private List<ReferenceModel> GetReference(String studentId)
+        {
+            Guid _id = new Guid(studentId);
+            try
+            {
+                var referenceList = _databaseContext.Reference.ToList();
+                var referenceLst = new List<ReferenceModel>();
+                for (int i = 0; i < referenceList.Count; i++)
+                {
+                    if (referenceList[i].studentId == _id)
+                    {
+                        referenceLst.Add(referenceList[i]);
+                    }
+                }
+                return (referenceLst);
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        [HttpGet]
         public IActionResult Logout()
         {
             HttpContext.Session.Clear();
@@ -326,6 +350,7 @@ namespace SIGPIP.Controllers
                 ViewBag.studentEmail = HttpContext.Session.GetString("studentEmail");
                 ViewBag.studentBio = HttpContext.Session.GetString("studentBio");
                 ViewBag.studies = this.GetStudy(HttpContext.Session.GetString("studentIdLogged"));
+                ViewBag.references = this.GetReference(HttpContext.Session.GetString("studentIdLogged"));
                 return View();
             }
         }

@@ -1,0 +1,83 @@
+﻿@model SIGPIP.Models.ReferenceModel
+
+@{
+    ViewData["Title"] = "GetReference";
+}
+
+<div class="row">
+@foreach(ReferenceModel referenceItem in @ViewBag.references)
+{
+  <div class="col-4" style="padding-bottom=150px">
+    <div class="card border-dark mb-3">
+      <div class="card-header bg-dark text-white">@referenceItem.referenceCompany</div>
+      <div class="card-body text-dark">
+        <h5 >@referenceItem.referenceName.ToUpper()</h5>
+        <br>
+        <p >@referenceItem.referenceAgent</p>
+        <p >@referenceItem.referencePhone</p>
+        </div>
+        <div class="card-footer bg-transparent text-right">
+            <div class="col-auto">
+                <button type="button" class="btn btn-outline-primary" onclick="newReferenceBtn.hidden=false; AddReferenceBtn.value='Edit'; addReferenceForm.hidden=false; editReference.hidden=true; referenceName.value='@referenceItem.referenceName'; referenceCompany.value='@referenceItem.referenceCompany'; referenceAgent.value='@referenceItem.referenceAgent'; referencePhone.value='@referenceItem.referencePhone'; referenceId.value='@referenceItem.referenceId';">Edit</button>
+                <a type="button" class="btn btn-outline-danger" asp-action="DeleteReference" asp-route-referenceId="@referenceItem.referenceId" asp-controller="Reference">Delete</a>
+            </div>
+        </div>
+    </div>
+  </div>
+}
+</div>
+<br>
+<form asp-controller="Reference" asp-action="AddReference" id="addReferenceForm" hidden method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+     <input type="hidden" asp-for="referenceId" id="referenceId" />
+     <input type="hidden" asp-for="studentId" value=@ViewBag.studentIdLogged />
+    <div class="row">
+        <div class="col-6">
+            <div class="form-group">
+                <label asp-for="referenceName" class="control-label required">Work Position</label>
+                <input asp-for="referenceName" class="form-control" id="referenceName"/>
+                <span asp-validation-for="referenceName" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="form-group">
+                <label asp-for="referenceCompany" class="control-label required">Company</label>
+                <input asp-for="referenceCompany" class="form-control" id="referenceCompany"/>
+                <span asp-validation-for="referenceCompany" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <div class="form-group">
+                <label asp-for="referenceAgent" class="control-label required">Reference Name</label>
+                <input asp-for="referenceAgent" class="form-control" id="referenceAgent"/>
+                <span asp-validation-for="referenceAgent" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="form-group">
+                <label asp-for="referencePhone" class="control-label required">Reference Phone</label>
+                <input asp-for="referencePhone" class="form-control" id="referencePhone"/>
+                <span asp-validation-for="referencePhone" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <div>
+        <p>Text area with * are mandatory</p>
+    </div>
+    <div class="row justify-content-between">
+        <div class="col-auto mr-auto">
+            <input type="submit" value="Add" id="AddReferenceBtn" class="btn btn-outline-success" />
+        </div>
+        <div class="col-auto mr-auto">
+            <input type="button" value="Add New" hidden id="newReferenceBtn" class="btn btn-outline-primary" onclick="newReferenceBtn.hidden=true; AddReferenceBtn.value='Add'; referenceAgent.value=''; referencePhone.value=''; referenceName.value=''; referenceCompany.value=''; referenceId.value='';" />
+        </div>
+        <div class="col-auto">
+            <input type="button" id="cancelReference" value="Cancel" class="btn btn-outline-dark" onclick="window.location.reload()"/>
+        </div>
+   </div>
+</form>
+<div class="col-auto">
+            <input type="button" id="editReference" value="Add" class="btn btn-outline-dark" onclick="addReferenceForm.hidden=false; editReference.hidden=!editReference.hidden;"/>
+</div>
