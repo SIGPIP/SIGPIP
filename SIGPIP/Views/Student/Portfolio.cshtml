@@ -322,6 +322,20 @@
 
         <div class="box">
             <div class="box-header with-border">
+                <h3 class="box-title">References</h3>
+                <ul class="box-controls pull-right">
+                    <li><a class="box-btn-slide" href="#"></a></li>
+                </ul>
+            </div>
+            <div class="box-body">
+                <div class="col-12">
+                    @Html.Partial("../Reference/GetReference")
+                </div> 
+            </div>
+       </div>
+
+        <div class="box">
+            <div class="box-header with-border">
                 <h3 class="box-title">Your interests</h3>
                 <button onclick="cleanInterestForm()" class="btn btn-primary" style="background:#EFEFEF; color:#455A64; border: none;" type="button" data-toggle="collapse" data-target="#collapseAddInterest" aria-expanded="false" aria-controls="collapseAddInterest">
                     <i class="fas fa-plus"></i>
