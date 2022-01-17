@@ -18,7 +18,7 @@ namespace SIGPIP.Models
         public string referenceAgent { get; set; }
         [Required]
         [Range(3000000000, 3999999999, ErrorMessage = "Phone number is not valid")]
-        public int referencePhone { get; set; }
+        public long referencePhone { get; set; }
         [Required]
         public string referenceCompany { get; set; }
     }
