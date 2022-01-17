@@ -10,7 +10,7 @@ using SIGPIP.Context;
 namespace SIGPIP.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20220117015754_DatabaseMigration")]
+    [Migration("20220117061649_DatabaseMigration")]
     partial class DatabaseMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -183,8 +183,8 @@ namespace SIGPIP.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("referencePhone")
-                        .HasColumnType("int");
+                    b.Property<long>("referencePhone")
+                        .HasColumnType("bigint");
 
                     b.Property<Guid>("studentId")
                         .HasColumnType("uniqueidentifier");

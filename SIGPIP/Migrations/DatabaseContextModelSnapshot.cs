@@ -181,8 +181,8 @@ namespace SIGPIP.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("referencePhone")
-                        .HasColumnType("int");
+                    b.Property<long>("referencePhone")
+                        .HasColumnType("bigint");
 
                     b.Property<Guid>("studentId")
                         .HasColumnType("uniqueidentifier");

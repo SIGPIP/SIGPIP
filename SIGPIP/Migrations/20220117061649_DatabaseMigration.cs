@@ -105,7 +105,7 @@ namespace SIGPIP.Migrations
                     studentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     referenceName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     referenceAgent = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    referencePhone = table.Column<int>(type: "int", nullable: false),
+                    referencePhone = table.Column<long>(type: "bigint", nullable: false),
                     referenceCompany = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>

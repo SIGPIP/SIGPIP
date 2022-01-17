@@ -4,25 +4,33 @@
     ViewData["Title"] = "GetReference";
 }
 
-<div class="card-columns">
+<div class="row">
 @foreach(ReferenceModel referenceItem in @ViewBag.references)
 {
-  <div class="card border-primary">
-      <div class="card-header">@referenceItem.referenceName</div>
-      <div class="card-body">
-        <h5 class="card-title">@referenceItem.referenceCompany</h5>
-        <p class="card-text">@referenceItem.referenceAgent</p>
-        <p class="card-text">@referenceItem.referencePhone</p>
-        <button type="button" class="btn btn-outline-primary" onclick="newReferenceBtn.hidden=false; AddReferenceBtn.value='Edit'; addReferenceForm.hidden=false; editReference.hidden=true; referenceName.value='@referenceItem.referenceName'; referenceCompany.value='@referenceItem.referenceCompany'; referenceAgent.value='@referenceItem.referenceAgent'; referencePhone.value='@referenceItem.referencePhone'; referenceId.value='@referenceItem.referenceId';">Edit</button>
-        <a type="button" class="btn btn-outline-danger" asp-action="DeleteReference" asp-route-referenceId="@referenceItem.referenceId" asp-controller="Reference">Delete</a>
-      </div>
+  <div class="col-4" style="padding-bottom=150px">
+    <div class="card border-dark mb-3">
+      <div class="card-header bg-dark text-white">@referenceItem.referenceCompany</div>
+      <div class="card-body text-dark">
+        <h5 >@referenceItem.referenceName.ToUpper()</h5>
+        <br>
+        <p >@referenceItem.referenceAgent</p>
+        <p >@referenceItem.referencePhone</p>
+        </div>
+        <div class="card-footer bg-transparent text-right">
+            <div class="col-auto">
+                <button type="button" class="btn btn-outline-primary" onclick="newReferenceBtn.hidden=false; AddReferenceBtn.value='Edit'; addReferenceForm.hidden=false; editReference.hidden=true; referenceName.value='@referenceItem.referenceName'; referenceCompany.value='@referenceItem.referenceCompany'; referenceAgent.value='@referenceItem.referenceAgent'; referencePhone.value='@referenceItem.referencePhone'; referenceId.value='@referenceItem.referenceId';">Edit</button>
+                <a type="button" class="btn btn-outline-danger" asp-action="DeleteReference" asp-route-referenceId="@referenceItem.referenceId" asp-controller="Reference">Delete</a>
+            </div>
+        </div>
     </div>
+  </div>
 }
 </div>
+<br>
 <form asp-controller="Reference" asp-action="AddReference" id="addReferenceForm" hidden method="post">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
      <input type="hidden" asp-for="referenceId" id="referenceId" />
-    <input type="hidden" asp-for="studentId" value=@ViewBag.studentIdLogged />
+     <input type="hidden" asp-for="studentId" value=@ViewBag.studentIdLogged />
     <div class="row">
         <div class="col-6">
             <div class="form-group">
