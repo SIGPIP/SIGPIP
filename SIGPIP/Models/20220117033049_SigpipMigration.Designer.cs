@@ -10,8 +10,8 @@ using SIGPIP.Context;
 namespace SIGPIP.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20220115051431_experienceUpdate")]
-    partial class experienceUpdate
+    [Migration("20220117033049_SigpipMigration")]
+    partial class SigpipMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -86,12 +86,12 @@ namespace SIGPIP.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<Guid>("categoryId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("habilityName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("studentId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("habilityId");
 
@@ -108,6 +108,9 @@ namespace SIGPIP.Migrations
                     b.Property<string>("interestName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("studentId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("interestId");
 
@@ -243,6 +246,9 @@ namespace SIGPIP.Migrations
                 {
                     b.Property<Guid>("studyId")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("studentId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("studyCity")

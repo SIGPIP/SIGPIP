@@ -10,6 +10,12 @@
         color: red;
     }
 
+    .interest-options,
+    .hability-options{
+        position: absolute;
+        display: none;
+    }
+
     .experience-options{
         position: absolute;
         bottom: 5%;
@@ -17,10 +23,22 @@
         display: none;
     }
 
+    .hability-tag:hover > .hability-options{
+        display: flex;
+    }
+
     .experience-card:hover > .experience-options{
         display: flex;
     }
 
+    .interest:hover > .interest-options{
+        display: flex;
+    }
+
+    .interest-delete,
+    .interest-edit,
+    .hability-delete,
+    .hability-edit,
     .experience-delete,
     .experience-edit{
         background: #69CFFB;
@@ -33,8 +51,10 @@
         cursor: pointer;
     }
 
+    .interest-delete,
+    .hability-delete,
     .experience-delete{
-        backgrou!importantd: #D33446;
+        background: #D33446;
     }
 
     @@media only screen and (max-width: 767px){
@@ -170,14 +190,42 @@
         <div class="box">
             <div class="box-header with-border">
                 <h3 class="box-title">Your Programming Languages or Frameworks</h3>
-
+                <button onclick="cleanHabilityForm()" class="btn btn-primary" style="background:#EFEFEF; color:#455A64; border: none;" type="button" data-toggle="collapse" data-target="#collapseAddHability" aria-expanded="false" aria-controls="collapseAddHability">
+                    <i class="fas fa-plus"></i>
+                </button>
                 <ul class="box-controls pull-right">
                     <li><a class="box-btn-slide" href="#"></a></li>
                 </ul>
             </div>
             <div class="box-body">
-                <div style="text-align: center;">
-                    <i class="fas fa-tools fa-10x"></i>
+                <div class="collapse" id="collapseAddHability">
+                <br/>
+                  <form asp-controller="Portfolio" asp-action="AddHability" method="post">
+                      <input type="hidden" asp-for="studentId" value=@ViewBag.studentIdLogged />
+                      <input type="hidden" for="habilityId" name="habilityId" id="habilityId" />
+                      <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="habilityName" class="control-label required">Language or framework name</label>
+                                <input name="habilityName"  id="habilityName" class="form-control " required/> 
+                                <span validation-for="habilityName" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <br/>
+                      </div>
+                    <div class="row">
+                        <div class="col-auto">
+                            <input type="submit" id="submitHability" value="Add Language or framework" class="btn btn-success"/>
+                        </div>
+                        <div class="col-auto">
+                            <input type="button" id="cancelHability" value="Cancel" class="btn btn-outline-dark" data-toggle="collapse" data-target="#collapseAddHability" aria-expanded="false" aria-controls="collapseAddHability"/>
+                        </div>
+                    </div>
+                    <br/>
+                  </form>
+                </div>
+                <div class="row mt-2 mx-auto" id="studenHabilitiesContainer">
+                    
                 </div>
             </div>
         </div>
@@ -248,17 +296,7 @@
                   </form>
                 </div>
                 <div class="row mt-2 mx-auto" id="studenExperienceContainer">
-                    @*<div class="row">
-                        <div class="col-2">
-                            <h4>Experience name</h4>
-                            <p>experiencePlace</p>
-                            <p>experienceEntity</p>
-                            <p>experienceStartDate</p>
-                        </div>
-                        <div class="col-10">
-                            <p>experienceDescription</p>
-                        </div>
-                    </div>*@
+                    
                 </div>
                 <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true">
                   <div class="modal-dialog" role="document">
@@ -270,11 +308,11 @@
                         </button>
                       </div>
                       <div class="modal-body">
-                        ¿Are you sure you want to delete this experience?
+                        ¿Are you sure you want to delete this data?
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" id="cancelExperience" data-dismiss="modal">Cancel</button>
-                        <button type="button" class="btn btn-danger" id="deleteExperience">Delete</button>
+                        <button type="button" class="btn btn-danger" id="deleteData">Delete</button>
                       </div>
                     </div>
                   </div>
@@ -284,11 +322,44 @@
 
         <div class="box">
             <div class="box-header with-border">
-                <h3 class="box-title">Your Licenses and Certifications</h3>
-
+                <h3 class="box-title">Your interests</h3>
+                <button onclick="cleanInterestForm()" class="btn btn-primary" style="background:#EFEFEF; color:#455A64; border: none;" type="button" data-toggle="collapse" data-target="#collapseAddInterest" aria-expanded="false" aria-controls="collapseAddInterest">
+                    <i class="fas fa-plus"></i>
+                </button>
                 <ul class="box-controls pull-right">
                     <li><a class="box-btn-slide" href="#"></a></li>
                 </ul>
+            </div>
+            <div class="box-body">
+                <div class="collapse" id="collapseAddInterest">
+                <br/>
+                  <form asp-controller="Portfolio" asp-action="AddInterest" method="post">
+                      <input type="hidden" asp-for="studentId" value=@ViewBag.studentIdLogged />
+                      <input type="hidden" for="interestId" name="interestId" id="interestId" />
+                      <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="interestName" class="control-label required">Your interest name</label>
+                                <input name="interestName"  id="interestName" class="form-control " required/> 
+                                <span validation-for="interestName" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <br/>
+                      </div>
+                    <div class="row">
+                        <div class="col-auto">
+                            <input type="submit" id="submitInterest" value="Add Interest" class="btn btn-success"/>
+                        </div>
+                        <div class="col-auto">
+                            <input type="button" id="cancelInterest" value="Cancel" class="btn btn-outline-dark" data-toggle="collapse" data-target="#collapseAddInterest" aria-expanded="false" aria-controls="collapseAddInterest"/>
+                        </div>
+                    </div>
+                    <br/>
+                  </form>
+                </div>
+                <div class="row mt-2 mx-auto" id="studentInterestContainer">
+                    
+                </div>
             </div>
         </div>
 
@@ -384,6 +455,8 @@
     <script>
         var studentId = '@(ViewBag.studentIdLogged)';
         var experienceToDelete = -1;
+        var habilityToDelete = -1;
+        var interestToDelete = -1;
         
         $('#studenExperienceContainer').ready(
             function(){
@@ -395,7 +468,7 @@
                         for(var i = 0; i < experience.length; i++){
                             var container = document.getElementById('studenExperienceContainer');
                             var containerContent = container.innerHTML;
-                            var experienceCard = '<div class="row mt-2 col-lg-6 experience-card"><div class="col-md-4 experience-card-header" style="background: #69CFFB;color: #010101;padding: 10px;border-top-left-radius: 12px;border-bottom-left-radius: 12px;"><h4 style="margin-bottom: 0;">'+experience[i].experienceName+'</h4><p style="margin-bottom: 0;">'+experience[i].experiencePlace+'</p><p style="margin-bottom: 0;">'+experience[i].experienceEntity+'</p><p style="margin-bottom: 0;">'+experience[i].experienceStartDate.substring(0, 10)+'</p></div><div class="col-md-8 experience-card-body" style="padding: 10px;color: #010101;box-shadow: rgb(0 0 0 / 10%) 0px 0px 5px 0px, rgb(0 0 0 / 10%) 0px 0px 1px 0px;border-top-right-radius: 12px;border-bottom-right-radius: 12px;"><p>'+experience[i].experienceDescription+'</p></div><div class="experience-options"><button class="experience-edit" data-toggle="collapse" data-target="#collapseAddExperience" aria-controls="collapseAddExperience"><i class="fas fa-pen"><div style="display: none;">'+experience[i].experienceId+'</div></i></button><button class="experience-delete"><i class="fas fa-trash"><div style="display: none;">'+experience[i].experienceId+'</div></i></button></div></div>';
+                            var experienceCard = '<div class="row mt-2 col-lg-6 experience-card" style="margin-left: 5px;"><div class="col-md-4 experience-card-header" style="background: #69CFFB;color: #010101;padding: 10px;border-top-left-radius: 12px;border-bottom-left-radius: 12px;"><h4 style="margin-bottom: 0;">'+experience[i].experienceName+'</h4><p style="margin-bottom: 0;">'+experience[i].experiencePlace+'</p><p style="margin-bottom: 0;">'+experience[i].experienceEntity+'</p><p style="margin-bottom: 0;">'+experience[i].experienceStartDate.substring(0, 10)+'</p></div><div class="col-md-8 experience-card-body" style="padding: 10px;color: #010101;box-shadow: rgb(0 0 0 / 10%) 0px 0px 5px 0px, rgb(0 0 0 / 10%) 0px 0px 1px 0px;border-top-right-radius: 12px;border-bottom-right-radius: 12px;"><p>'+experience[i].experienceDescription+'</p></div><div class="experience-options"><button class="experience-edit" data-toggle="collapse" data-target="#collapseAddExperience" aria-controls="collapseAddExperience"><i class="fas fa-pen"><div style="display: none;">'+experience[i].experienceId+'</div></i></button><button class="experience-delete"><i class="fas fa-trash"><div style="display: none;">'+experience[i].experienceId+'</div></i></button></div></div>';
                             container.innerHTML = containerContent + experienceCard;
                         }
 
@@ -407,7 +480,7 @@
                                 console.log(experienceToDelete);
                                 $('#confirmationModal').modal('show');
 
-                                $('#deleteExperience').on('click', function(event) {
+                                $('#deleteData').on('click', function(event) {
                                     var experienceid = experienceToDelete;
                                     console.log(experienceid);
                                     $.ajax({
@@ -455,6 +528,134 @@
 
         )
 
+        $('#studenHabilitiesContainer').ready(
+            function(){
+                $.ajax({
+                    type: 'GET',
+                    url: '/Portfolio/GetHabilities',
+                    data: { studentId: studentId },
+                    success: function(hability){
+                        for(var i = 0; i < hability.length; i++){
+                            var container = document.getElementById('studenHabilitiesContainer');
+                            var containerContent = container.innerHTML;
+                            var habilityTag = '<div class="hability-tag d-inline" style="color: #010101; margin: 5px;"><div style="padding: 2px 5px; background: #69CFFB";>'+hability[i].habilityName+'</div><div class="hability-options"><button class="hability-edit" data-toggle="collapse" data-target="#collapseAddHability" aria-controls="collapseAddHability"><i class="fas fa-pen"><div style="display: none;">'+hability[i].habilityId+'</div></i></button><button class="hability-delete"><i class="fas fa-trash"><div style="display: none;">'+hability[i].habilityId+'</div></i></button></div></div></div>';
+                            container.innerHTML = containerContent + habilityTag;
+                        }
+
+                        var deleteHability = document.getElementsByClassName('hability-delete');
+
+                        for(var i = 0; i < deleteHability.length; i++){
+                            deleteHability[i].addEventListener('click', function (event) {
+                                habilityToDelete = event.target.querySelector('div').innerHTML;;
+                                console.log(habilityToDelete);
+                                $('#confirmationModal').modal('show');
+
+                                $('#deleteData').on('click', function(event) {
+                                    var habilityid = habilityToDelete;
+                                    $.ajax({
+                                        type: 'delete',
+                                        url: '/portfolio/deleteHability',
+                                        data: { habilityid: habilityid},
+                                        success: function(){
+                                            window.location.reload();
+                                        }
+                                    })
+                                });
+
+                                $('#cancelHability').on('click', function(event) {
+                                    habilityToDelete = -1;
+                                });
+                            });
+                        }
+
+                        var editHability = document.getElementsByClassName('hability-edit');
+
+                        for(var i = 0; i < editHability.length; i++){
+                            editHability[i].addEventListener('click', function (event) {
+                                habilityId = event.target.querySelector('div').innerHTML;
+                                
+                                $.ajax({
+                                    type: 'GET',
+                                    url: '/Portfolio/GetSingleHability',
+                                    data: { habilityId: habilityId},
+                                    success: function(hability){
+                                        document.getElementById('habilityId').setAttribute('value',hability.habilityId); 
+                                        document.getElementById('habilityName').setAttribute('value',hability.habilityName); 
+                                    }
+                                });
+                            });
+                        }
+                    }
+                });
+
+            }
+
+        )
+
+        $('#studentInterestContainer').ready(
+            function(){
+                $.ajax({
+                    type: 'GET',
+                    url: '/Portfolio/GetInterests',
+                    data: { studentId: studentId },
+                    success: function(interest){
+                        for(var i = 0; i < interest.length; i++){
+                            var container = document.getElementById('studentInterestContainer');
+                            var containerContent = container.innerHTML;
+                            var interestTag = '<div class="interest d-block" style="color: #010101; margin: 5px;"><div style="padding: 2px 5px; background: #69CFFB";>'+interest[i].interestName+'</div><div class="interest-options"><button class="interest-edit" data-toggle="collapse" data-target="#collapseAddInterest" aria-controls="collapseAddInterest"><i class="fas fa-pen"><div style="display: none;">'+interest[i].interestId+'</div></i></button><button class="interest-delete"><i class="fas fa-trash"><div style="display: none;">'+interest[i].interestId+'</div></i></button></div></div></div>';
+                            container.innerHTML = containerContent + interestTag;
+                        }
+
+                        var deleteInterest = document.getElementsByClassName('interest-delete');
+
+                        for(var i = 0; i < deleteInterest.length; i++){
+                            deleteInterest[i].addEventListener('click', function (event) {
+                                interestToDelete = event.target.querySelector('div').innerHTML;;
+                                
+                                $('#confirmationModal').modal('show');
+
+                                $('#deleteData').on('click', function(event) {
+                                    var interestid = interestToDelete;
+                                    $.ajax({
+                                        type: 'delete',
+                                        url: '/portfolio/deleteInterest',
+                                        data: { interestid: interestid},
+                                        success: function(){
+                                            window.location.reload();
+                                        }
+                                    })
+                                });
+
+                                $('#cancelHability').on('click', function(event) {
+                                    interestToDelete = -1;
+                                });
+                            });
+                        }
+
+                        var editInterest = document.getElementsByClassName('interest-edit');
+
+                        for(var i = 0; i < editInterest.length; i++){
+                            editInterest[i].addEventListener('click', function (event) {
+                                interestId = event.target.querySelector('div').innerHTML;
+                                
+                                $.ajax({
+                                    type: 'GET',
+                                    url: '/Portfolio/GetSingleInterest',
+                                    data: { interestId: interestId},
+                                    success: function(interest){
+                                        document.getElementById('interestId').setAttribute('value',interest.interestId); 
+                                        document.getElementById('interestName').setAttribute('value',interest.interestName); 
+                                    }
+                                });
+                            });
+                        }
+                    }
+                });
+
+            }
+
+        )
+
         function cleanExperienceForm(){
             document.getElementById('experienceId').setAttribute('value',''); 
             document.getElementById('experienceName').setAttribute('value',''); 
@@ -462,6 +663,16 @@
             document.getElementById('experiencePlace').setAttribute('value',''); 
             document.getElementById('experienceDescription').setAttribute('value',''); 
             document.getElementById('experienceStartDate').setAttribute('value',''); 
+        }
+
+        function cleanHabilityForm(){
+            document.getElementById('habilityId').setAttribute('value',''); 
+            document.getElementById('habilityName').setAttribute('value',''); 
+        }
+
+        function cleanInterestForm(){
+            document.getElementById('interestId').setAttribute('value',''); 
+            document.getElementById('interestName').setAttribute('value',''); 
         }
 
     </script>

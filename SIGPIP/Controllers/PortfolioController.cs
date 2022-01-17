@@ -90,7 +90,7 @@ namespace SIGPIP.Controllers
                     _databaseContext.Experience.Update(existentExperience);
                     _databaseContext.SaveChanges();
 
-                    return RedirectToAction("Portfolio", "Student");
+                    return Ok();
                 }
                 else
                 {
@@ -112,7 +112,7 @@ namespace SIGPIP.Controllers
                 var experience = _databaseContext.Experience.FirstOrDefault(exp => exp.experienceId == experienceId);
                 if(experience != null)
                 {
-                    _databaseContext.Remove(experience);
+                    _databaseContext.Experience.Remove(experience);
                     _databaseContext.SaveChanges();
                     return Ok();
                 }
@@ -126,6 +126,205 @@ namespace SIGPIP.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet]
+        public IActionResult GetHabilities(Guid studentId)
+        {
+            try
+            {
+                var studentHabilities = _databaseContext.Hability.Where(hab => hab.studentId == studentId).ToList();
+                return Ok(studentHabilities);
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        public IActionResult GetSingleHability(int habilityId)
+        {
+            try
+            {
+                var studentHability = _databaseContext.Hability.FirstOrDefault(hab => hab.habilityId == habilityId);
+                return Ok(studentHability);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        public IActionResult AddHability(HabilityModel hability)
+        {
+            try
+            {
+                var existentHability = _databaseContext.Hability.FirstOrDefault(hab => hab.habilityId == hability.habilityId);
+
+                if(existentHability != null)
+                {
+                    UpdateHability(hability);
+                    return RedirectToAction("Portfolio", "Student");
+                }
+
+                _databaseContext.Hability.Add(hability);
+                _databaseContext.SaveChanges();
+                return RedirectToAction("Portfolio", "Student");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPut]
+        public IActionResult UpdateHability(HabilityModel hability)
+        {
+            try
+            {
+                var existentHability = _databaseContext.Hability.FirstOrDefault(hab => hab.habilityId == hability.habilityId);
+
+                if(existentHability != null)
+                {
+                    existentHability.habilityName = hability.habilityName;
+                    _databaseContext.Hability.Update(existentHability);
+                    _databaseContext.SaveChanges();
+                    return Ok();
+                }
+                else
+                {
+                    return BadRequest("This language or framework doesn´t exists anymore");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpDelete]
+        public IActionResult deleteHability(int habilityId)
+        {
+            try
+            {
+                var hability = _databaseContext.Hability.FirstOrDefault(hab => hab.habilityId == habilityId);
+                if (hability != null)
+                {
+                    _databaseContext.Hability.Remove(hability);
+                    _databaseContext.SaveChanges();
+                    return Ok();
+                }
+                else
+                {
+                    return BadRequest("This experience has been removed already");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        public IActionResult GetInterests(Guid studentId)
+        {
+            try
+            {
+                var studentInterests = _databaseContext.Interest.Where(its => its.studentId == studentId).ToList();
+                return Ok(studentInterests);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        public IActionResult GetSingleInterest(int interestId)
+        {
+            try
+            {
+                var studentInterest = _databaseContext.Interest.FirstOrDefault(its => its.interestId == interestId);
+                return Ok(studentInterest);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        public IActionResult AddInterest(InterestModel interest)
+        {
+            try
+            {
+                var existentInterest = _databaseContext.Interest.FirstOrDefault(its => its.interestId == interest.interestId);
+
+                if (existentInterest != null)
+                {
+                    UpdateInterest(interest);
+                    return RedirectToAction("Portfolio", "Student");
+                }
+
+                _databaseContext.Interest.Add(interest);
+                _databaseContext.SaveChanges();
+                return RedirectToAction("Portfolio", "Student");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPut]
+        public IActionResult UpdateInterest(InterestModel interest)
+        {
+            try
+            {
+                var existentInterest = _databaseContext.Interest.FirstOrDefault(ist => ist.interestId == interest.interestId);
+
+                if (existentInterest != null)
+                {
+                    existentInterest.interestName = interest.interestName;
+                    _databaseContext.Interest.Update(existentInterest);
+                    _databaseContext.SaveChanges();
+                    return Ok();
+                }
+                else
+                {
+                    return BadRequest("This language or framework doesn´t exists anymore");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpDelete]
+        public IActionResult deleteInterest(int interestId)
+        {
+            try
+            {
+                var interest = _databaseContext.Interest.FirstOrDefault(ist => ist.interestId == interestId);
+                if (interest != null)
+                {
+                    _databaseContext.Interest.Remove(interest);
+                    _databaseContext.SaveChanges();
+                    return Ok();
+                }
+                else
+                {
+                    return BadRequest("This experience has been removed already");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         public ActionResult ViewPortfolio()
         {
             return View();
