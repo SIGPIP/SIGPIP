@@ -100,21 +100,21 @@
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <input type="hidden" asp-for="studentId" value=@ViewBag.studentIdLogged />
                     <div class="row">
-                        <div class="col-4">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label asp-for="studentNames" class="control-label">Names</label>
                                 <input asp-for="studentNames"  id="studentName" class="form-control" value=@ViewBag.studentName/> 
                                 <span asp-validation-for="studentNames" class="text-danger"></span>
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label asp-for="studentLastNames" class="control-label">Lastnames</label>
                                 <input asp-for="studentLastNames" class="form-control" value=@ViewBag.studentLastName/>
                                 <span asp-validation-for="studentLastNames" class="text-danger"></span>
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label asp-for="studentCountry" class="control-label">Where are you from?</label>
                                 <input asp-for="studentCountry" class="form-control" value=@ViewBag.studentCountry/>
@@ -123,21 +123,21 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-4">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label asp-for="studentCareer" class="control-label">What career are you studying?</label>
                                 <input asp-for="studentCareer" class="form-control" value=@ViewBag.studentCareer/>
                                 <span asp-validation-for="studentCareer" class="text-danger"></span>
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label asp-for="studentSemester" class="control-label">What semester are you in?</label>
                                 <input asp-for="studentSemester" class="form-control" value=@ViewBag.studentSemester/>
                                 <span asp-validation-for="studentSemester" class="text-danger"></span>
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label asp-for="studentEmail" class="control-label">E-Mail
                                 </label>

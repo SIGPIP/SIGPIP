@@ -4,59 +4,61 @@
     ViewData["Title"] = "GetStudy";
 }
 
-<table class="table" col-12>
-    <thead>
-        <tr>
-            <th>
-                Name
-            </th>
-            <th>
-                Grade
-            </th>
-            <th>
-                Year
-            </th>
-            <th>
-                Place
-            </th>
-            <th>
-                Country
-            </th>
-            <th>
-                City
-            </th>
-        </tr>
-    </thead>
-   <tbody>
-    @foreach (StudyModel item in @ViewBag.studies)
-    {
-        <tr>
-            <td>
-                @item.studyName
-            </td>
-            <td>
-                @item.studyGrade
-            </td>
-            <td>
-                @item.studyYear
-            </td>
-            <td>
-                @item.studyPlace
-            </td>
-            <td>
-                @item.studyCountry
-            </td>
-            <td>
-                @item.studyCity
-            </td>
-            <td align="right" style="max-width: 4rem;">
-                <button type="button" class="btn btn-outline-primary" onclick="newBtn.hidden=false; AddBtn.value='Edit'; addForm.hidden=false; edit.hidden=true; studyId.value='@item.studyId'; studyName.value='@item.studyName'; studyGrade.value='@item.studyGrade'; studyYear.value='@item.studyYear'; studyPlace.value='@item.studyPlace'; studyCountry.value='@item.studyCountry'; studyCity.value='@item.studyCity'">Edit</button>
-                <a type="button" class="btn btn-outline-danger" asp-action="DeleteStudy" asp-route-studyId="@item.studyId" asp-controller="Study">Delete</a>
-            </td>   
-        </tr>
-    }
-    </tbody>
- </table>
+<div>
+    <table class="table" col-12 style="display: block; overflow-x: auto; white-space: nowrap;">
+        <thead>
+            <tr>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Grade
+                </th>
+                <th>
+                    Year
+                </th>
+                <th>
+                    Place
+                </th>
+                <th>
+                    Country
+                </th>
+                <th>
+                    City
+                </th>
+            </tr>
+        </thead>
+       <tbody>
+        @foreach (StudyModel item in @ViewBag.studies)
+        {
+            <tr>
+                <td>
+                    @item.studyName
+                </td>
+                <td>
+                    @item.studyGrade
+                </td>
+                <td>
+                    @item.studyYear
+                </td>
+                <td>
+                    @item.studyPlace
+                </td>
+                <td>
+                    @item.studyCountry
+                </td>
+                <td>
+                    @item.studyCity
+                </td>
+                <td align="right" style="max-width: 4rem;">
+                    <button type="button" class="btn btn-outline-primary" onclick="newBtn.hidden=false; AddBtn.value='Edit'; addForm.hidden=false; edit.hidden=true; studyId.value='@item.studyId'; studyName.value='@item.studyName'; studyGrade.value='@item.studyGrade'; studyYear.value='@item.studyYear'; studyPlace.value='@item.studyPlace'; studyCountry.value='@item.studyCountry'; studyCity.value='@item.studyCity'">Edit</button>
+                    <a type="button" class="btn btn-outline-danger" asp-action="DeleteStudy" asp-route-studyId="@item.studyId" asp-controller="Study">Delete</a>
+                </td>   
+            </tr>
+        }
+        </tbody>
+     </table>
+</div>
     <form asp-controller="Study" asp-action="AddStudy" id="addForm" hidden method="post">
     <div asp-validation-summary="ModelOnly"  class="text-danger"></div>
     <input type="hidden" asp-for="studyId" id="studyId" />

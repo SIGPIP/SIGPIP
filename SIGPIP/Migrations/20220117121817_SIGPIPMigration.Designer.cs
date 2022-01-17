@@ -10,8 +10,8 @@ using SIGPIP.Context;
 namespace SIGPIP.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20220117061649_DatabaseMigration")]
-    partial class DatabaseMigration
+    [Migration("20220117121817_SIGPIPMigration")]
+    partial class SIGPIPMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -108,6 +108,9 @@ namespace SIGPIP.Migrations
                     b.Property<string>("interestName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("studentId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("interestId");
 
