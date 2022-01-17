@@ -1,0 +1,86 @@
+﻿@model SIGPIP.Models.StudentModel
+
+
+@{
+    ViewData["Title"] = "Home";
+    Layout = "~/Views/Shared/_LayoutPortfolio.cshtml";
+}
+
+<style>
+    .required:after {
+        content:" *";
+        color: red;
+    }
+
+    .experience-options{
+        position: absolute;
+        bottom: 5%;
+        right: 5%;
+        display: none;
+    }
+
+    .experience-card:hover > .experience-options{
+        display: flex;
+    }
+
+    .experience-delete,
+    .experience-edit{
+        background: #69CFFB;
+        padding: 5px;
+        color: #010101;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-right: 2px;
+        cursor: pointer;
+    }
+
+    .experience-delete{
+        backgrou!importantd: #D33446;
+    }
+
+    @@media only screen and (max-width: 767px){
+        .experience-card-header{
+            border-bottom-left-radius: 0px !important; 
+            border-top-right-radius: 12px !important; 
+        }
+
+        .experience-card-body{
+            border-top-right-radius: 0px !important; 
+            border-bottom-left-radius: 12px !important; 
+        }
+    }
+</style>
+
+<div class="content-wrapper">
+    
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Pending Projects
+        </h1>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><i class="fas fa-compass"></i> Home</li>
+            <li class="breadcrumb-item active">Pending Projects</li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title">Pending Projects</h3>
+
+                <ul class="box-controls pull-right">
+                    <li><a class="box-btn-slide" href="#"></a></li>
+                </ul>
+            </div>
+            <div class="box-body">
+                <div style="text-align: center;">
+                    <h2><span style="color:dodgerblue">Coming Soon</span>, stay tuned @ViewBag.studentName !</h2>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
+</div>

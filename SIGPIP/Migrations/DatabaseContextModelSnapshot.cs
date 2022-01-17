@@ -88,6 +88,9 @@ namespace SIGPIP.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid>("studentId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("habilityId");
 
                     b.ToTable("Hability");
@@ -103,6 +106,9 @@ namespace SIGPIP.Migrations
                     b.Property<string>("interestName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("studentId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("interestId");
 

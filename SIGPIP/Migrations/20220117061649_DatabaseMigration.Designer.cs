@@ -10,7 +10,11 @@ using SIGPIP.Context;
 namespace SIGPIP.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
+<<<<<<< HEAD:SIGPIP/Migrations/20220117061649_DatabaseMigration.Designer.cs
     [Migration("20220117061649_DatabaseMigration")]
+=======
+    [Migration("20220117010112_DatabaseMigration")]
+>>>>>>> ca5e6726c819b86cc33e83225e539ce3795a1144:SIGPIP/Models/20220117010112_DatabaseMigration.Designer.cs
     partial class DatabaseMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -89,6 +93,9 @@ namespace SIGPIP.Migrations
                     b.Property<string>("habilityName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("studentId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("habilityId");
 

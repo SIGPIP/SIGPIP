@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SIGPIP.Migrations
 {
-    public partial class DatabaseMigration : Migration
+    public partial class SigpipMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -60,6 +60,7 @@ namespace SIGPIP.Migrations
                 {
                     interestId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    studentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     interestName = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -102,16 +103,15 @@ namespace SIGPIP.Migrations
                 name: "Reference",
                 columns: table => new
                 {
-                    referenceId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     studentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     referenceName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     referenceAgent = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    referencePhone = table.Column<long>(type: "bigint", nullable: false),
+                    referencePhone = table.Column<int>(type: "int", nullable: false),
                     referenceCompany = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Reference", x => x.referenceId);
+                    table.PrimaryKey("PK_Reference", x => x.studentId);
                 });
 
             migrationBuilder.CreateTable(
