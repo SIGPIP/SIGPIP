@@ -42,7 +42,8 @@ namespace SIGPIP.Controllers
             }
         }
 
-        public IActionResult Privacy()
+
+        public IActionResult PendingProjects()
         {
             if (LoggedInVerify() == false)
             {
@@ -50,6 +51,24 @@ namespace SIGPIP.Controllers
             }
             else
             {
+                ViewBag.studentName = HttpContext.Session.GetString("studentName");
+                ViewBag.studentIdLogged = HttpContext.Session.GetString("studentIdLogged");
+                ViewBag.studentEmail = HttpContext.Session.GetString("studentEmail");
+                return View();
+            }
+        }
+
+        public IActionResult DesiredProjects()
+        {
+            if (LoggedInVerify() == false)
+            {
+                return RedirectToAction("Login");
+            }
+            else
+            {
+                ViewBag.studentName = HttpContext.Session.GetString("studentName");
+                ViewBag.studentIdLogged = HttpContext.Session.GetString("studentIdLogged");
+                ViewBag.studentEmail = HttpContext.Session.GetString("studentEmail");
                 return View();
             }
         }
@@ -310,5 +329,6 @@ namespace SIGPIP.Controllers
                 return View();
             }
         }
+
     }
 }

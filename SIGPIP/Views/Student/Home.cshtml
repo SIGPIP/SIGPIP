@@ -12,15 +12,31 @@
     
 
     <!-- Main content -->
+
     <section class="content">
-       <h1>Home</h1>
+        <!--
+            <h1>Home</h1>
 
         <p>Welcome! @ViewBag.studentName</p>
         <p>Yout ID is: @ViewBag.studentIdLogged</p>
 
-        <div>
-            <a asp-action="Logout">Logout</a>
+        -->
+
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title">Your Projects</h3>
+
+                <ul class="box-controls pull-right">
+                    <li><a class="box-btn-slide" href="#"></a></li>
+                </ul>
+            </div>
+            <div class="box-body">
+                <div style="text-align: center;">
+                    <h2><span style="color:dodgerblue">Coming Soon</span>, stay tuned @ViewBag.studentName !</h2>
+                </div>
+            </div>
         </div>
+
     </section>
     <!-- /.content -->
 </div>

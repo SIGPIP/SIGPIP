@@ -10,7 +10,7 @@ using SIGPIP.Context;
 namespace SIGPIP.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20220113170748_DatabaseMigration")]
+    [Migration("20220117010005_DatabaseMigration")]
     partial class DatabaseMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -44,9 +44,10 @@ namespace SIGPIP.Migrations
 
             modelBuilder.Entity("SIGPIP.Models.ExperienceModel", b =>
                 {
-                    b.Property<Guid>("studentId")
+                    b.Property<int>("experienceId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("experienceDescription")
                         .IsRequired()
@@ -70,7 +71,10 @@ namespace SIGPIP.Migrations
                     b.Property<DateTime>("experienceStartDate")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("studentId");
+                    b.Property<Guid>("studentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("experienceId");
 
                     b.ToTable("Experience");
                 });

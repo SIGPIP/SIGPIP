@@ -9,10 +9,5 @@ namespace SIGPIP.Controllers
         {
             return View();
         }
-
-        public ActionResult Privacy()
-        {
-            return View();
-        }
     }
 }
