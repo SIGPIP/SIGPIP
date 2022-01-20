@@ -90,6 +90,7 @@
         <div class="box">
             <div class="box-header with-border">
                 <h3 class="box-title">Personal Information</h3>
+                <button id="btn" class="btn" onclick = 'frm.disabled = !frm.disabled; cancel.hidden = !cancel.hidden; submit.hidden = !submit.hidden; btn.hidden=!btn.hidden;'> <i class="fas fa-pencil-alt"></i></button>
                 <ul class="box-controls pull-right">
                     <li><a class="box-btn-slide" href="#"></a></li>
                 </ul>
@@ -164,9 +165,7 @@
                         </div>
                     </div>
                     </fieldset>
-                </form>
-                <div class="col-auto">
-                    <input  type="button" value="Edit" id="btn"  class="btn btn-outline-dark"  onclick = 'frm.disabled = !frm.disabled; cancel.hidden = !cancel.hidden; submit.hidden = !submit.hidden; btn.hidden=!btn.hidden;' />                </div>
+                </form>  
             </div>
 
             <!-- /.box-footer-->
@@ -174,23 +173,13 @@
         <!-- /.box -->
 
         <div class="box">
-            <div class="box-header with-border">
-                <h3 class="box-title">Education</h3>
-                <ul class="box-controls pull-right">
-                    <li><a class="box-btn-slide" href="#"></a></li>
-                </ul>
-            </div>
-            <div class="box-body">
-                <div class="col-12">
-                    @Html.Partial("../Study/GetStudy")
-                </div> 
-            </div>
+            @Html.Partial("../Study/GetStudy")
        </div>
 
         <div class="box">
             <div class="box-header with-border">
                 <h3 class="box-title">Your Programming Languages or Frameworks</h3>
-                <button onclick="cleanHabilityForm()" class="btn btn-primary" style="background:#EFEFEF; color:#455A64; border: none;" type="button" data-toggle="collapse" data-target="#collapseAddHability" aria-expanded="false" aria-controls="collapseAddHability">
+                <button onclick="cleanHabilityForm(); btnAddHability.hidden=!btnAddHability.hidden" id="btnAddHability" class="btn btn-primary" style="background:#EFEFEF; color:#455A64; border: none;" type="button" data-toggle="collapse" data-target="#collapseAddHability" aria-expanded="false" aria-controls="collapseAddHability">
                     <i class="fas fa-plus"></i>
                 </button>
                 <ul class="box-controls pull-right">
@@ -218,7 +207,7 @@
                             <input type="submit" id="submitHability" value="Add Language or framework" class="btn btn-success"/>
                         </div>
                         <div class="col-auto">
-                            <input type="button" id="cancelHability" value="Cancel" class="btn btn-outline-dark" data-toggle="collapse" data-target="#collapseAddHability" aria-expanded="false" aria-controls="collapseAddHability"/>
+                            <input type="button" onclick="btnAddHability.hidden=!btnAddHability.hidden"id="cancelHability" value="Cancel" class="btn btn-outline-dark" data-toggle="collapse" data-target="#collapseAddHability" aria-expanded="false" aria-controls="collapseAddHability"/>
                         </div>
                     </div>
                     <br/>
@@ -233,7 +222,7 @@
         <div class="box">
             <div class="box-header with-border">
                 <h3 class="box-title">Work Experience</h3>
-                <button onclick="cleanExperienceForm()" class="btn btn-primary" style="background:#EFEFEF; color:#455A64; border: none;" type="button" data-toggle="collapse" data-target="#collapseAddExperience" aria-expanded="false" aria-controls="collapseAddExperience">
+                <button onclick="cleanExperienceForm(); BtnAddExperience.hidden=!BtnAddExperience.hidden" id="BtnAddExperience" class="btn btn-primary" style="background:#EFEFEF; color:#455A64; border: none;" type="button" data-toggle="collapse" data-target="#collapseAddExperience" aria-expanded="false" aria-controls="collapseAddExperience">
                     <i class="fas fa-plus"></i>
                 </button>
                 <ul class="box-controls pull-right">
@@ -289,7 +278,7 @@
                             <input type="submit" id="submitExperience" value="Add experience" class="btn btn-success"/>
                         </div>
                         <div class="col-auto">
-                            <input type="button" id="cancelExperience" value="Cancel" class="btn btn-outline-dark" data-toggle="collapse" data-target="#collapseAddExperience" aria-expanded="false" aria-controls="collapseAddExperience"/>
+                            <input type="button" id="cancelExperience" onclick="BtnAddExperience.hidden=!BtnAddExperience.hidden" value="Cancel" class="btn btn-outline-dark" data-toggle="collapse" data-target="#collapseAddExperience" aria-expanded="false" aria-controls="collapseAddExperience"/>
                         </div>
                     </div>
                     <br/>
@@ -321,23 +310,13 @@
         </div>
 
         <div class="box">
-            <div class="box-header with-border">
-                <h3 class="box-title">References</h3>
-                <ul class="box-controls pull-right">
-                    <li><a class="box-btn-slide" href="#"></a></li>
-                </ul>
-            </div>
-            <div class="box-body">
-                <div class="col-12">
-                    @Html.Partial("../Reference/GetReference")
-                </div> 
-            </div>
+            @Html.Partial("../Reference/GetReference")
        </div>
 
         <div class="box">
             <div class="box-header with-border">
                 <h3 class="box-title">Your interests</h3>
-                <button onclick="cleanInterestForm()" class="btn btn-primary" style="background:#EFEFEF; color:#455A64; border: none;" type="button" data-toggle="collapse" data-target="#collapseAddInterest" aria-expanded="false" aria-controls="collapseAddInterest">
+                <button onclick="cleanInterestForm(); btnAddInterest.hidden=!btnAddInterest.hidden" id="btnAddInterest" class="btn btn-primary" style="background:#EFEFEF; color:#455A64; border: none;" type="button" data-toggle="collapse" data-target="#collapseAddInterest" aria-expanded="false" aria-controls="collapseAddInterest">
                     <i class="fas fa-plus"></i>
                 </button>
                 <ul class="box-controls pull-right">
@@ -365,7 +344,7 @@
                             <input type="submit" id="submitInterest" value="Add Interest" class="btn btn-success"/>
                         </div>
                         <div class="col-auto">
-                            <input type="button" id="cancelInterest" value="Cancel" class="btn btn-outline-dark" data-toggle="collapse" data-target="#collapseAddInterest" aria-expanded="false" aria-controls="collapseAddInterest"/>
+                            <input type="button" id="cancelInterest" onclick="btnAddInterest.hidden=!btnAddInterest.hidden" value="Cancel" class="btn btn-outline-dark" data-toggle="collapse" data-target="#collapseAddInterest" aria-expanded="false" aria-controls="collapseAddInterest"/>
                         </div>
                     </div>
                     <br/>
