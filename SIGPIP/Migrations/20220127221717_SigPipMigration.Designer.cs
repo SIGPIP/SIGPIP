@@ -10,8 +10,8 @@ using SIGPIP.Context;
 namespace SIGPIP.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20220117121817_SIGPIPMigration")]
-    partial class SIGPIPMigration
+    [Migration("20220127221717_SigPipMigration")]
+    partial class SigPipMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -149,8 +149,8 @@ namespace SIGPIP.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("projectImageUrl")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<byte[]>("projectImageData")
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<string>("projectLink")
                         .HasColumnType("nvarchar(max)");
@@ -163,7 +163,11 @@ namespace SIGPIP.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("projectZipId")
+                    b.Property<byte[]>("projectZipData")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<Guid>("studentId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("projectId");
