@@ -40,9 +40,9 @@ namespace SIGPIP.Controllers
         public IActionResult RegisterStudentProject(ProjectModel projectModel)
         {
 
-            if (String.IsNullOrWhiteSpace(projectModel.projectName) || String.IsNullOrWhiteSpace(projectModel.projectFramework))
+            if (String.IsNullOrWhiteSpace(projectModel.projectName) || String.IsNullOrWhiteSpace(projectModel.projectFramework) || String.IsNullOrWhiteSpace(projectModel.projectLanguages))
             {
-                return BadRequest("Debes incluir el nombre y framework del proyecto");
+                return BadRequest("Debes incluir el nombre, lenguaje y framework del proyecto");
             }
 
             try
@@ -100,6 +100,8 @@ namespace SIGPIP.Controllers
                     }
 
                     projectModel.projectId = Guid.NewGuid();
+                    projectModel.projectUploadDate = DateTime.Now;
+                    projectModel.projectLastUpdate = DateTime.Now;
 
                     _database.Project.Add(projectModel);
                     _database.SaveChanges();
@@ -132,7 +134,9 @@ namespace SIGPIP.Controllers
                     existentProject.projectRepoLink = projectModel.projectRepoLink;
                     existentProject.projectLink = projectModel.projectLink;
                     existentProject.projectFramework = projectModel.projectFramework;
-                    if(projectModel.projectImageData != null)
+                    existentProject.projectLanguages = projectModel.projectLanguages;
+                    existentProject.projectLastUpdate = DateTime.Now;
+                    if (projectModel.projectImageData != null)
                     {
                         existentProject.projectImageData = projectModel.projectImageData;
                     }

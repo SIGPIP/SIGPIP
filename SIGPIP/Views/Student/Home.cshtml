@@ -63,9 +63,14 @@
                             <span validation-for="projectRepoLink" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label for="projectFramework">Framework</label>
+                            <label for="projectFramework">Framework o entorno usado</label>
                             <input name="projectFramework"  id="projectFramework" class="form-control"/> 
                             <span validation-for="projectFramework" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="projectLanguages">Lenguajes de programación usados (Separados por comas ",")</label>
+                            <input name="projectLanguages"  id="projectLanguages" class="form-control"/> 
+                            <span validation-for="projectLanguages" class="text-danger"></span>
                         </div>
                         <input type="file" name="files" id="files" accept="image/*"/>
                         <img src="#" id="uploadedImage" width="200" height="100" hidden/>
@@ -131,6 +136,7 @@
             document.getElementById('projectLink').setAttribute('value', projectToEdit.projectLink); 
             document.getElementById('projectRepoLink').setAttribute('value', projectToEdit.projectRepoLink); 
             document.getElementById('projectFramework').setAttribute('value', projectToEdit.projectFramework); 
+            document.getElementById('projectLanguages').setAttribute('value', projectToEdit.projectLanguages); 
             document.getElementById('projectId').setAttribute('value', projectToEdit.projectId); 
             document.getElementById('submitProject').setAttribute('value', 'Edit'); 
             document.getElementById('files').value = "";
@@ -162,6 +168,7 @@
             document.getElementById('projectLink').setAttribute('value', ''); 
             document.getElementById('projectRepoLink').setAttribute('value', ''); 
             document.getElementById('projectFramework').setAttribute('value', ''); 
+            document.getElementById('projectLanguages').setAttribute('value', ''); 
             document.getElementById('projectId').setAttribute('value', ''); 
             document.getElementById('submitProject').setAttribute('value', 'Upload'); 
             document.getElementById('cancelEditButton').setAttribute('hidden', true); 

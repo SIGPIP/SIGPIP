@@ -150,6 +150,13 @@ namespace SIGPIP.Migrations
                     b.Property<byte[]>("projectImageData")
                         .HasColumnType("varbinary(max)");
 
+                    b.Property<string>("projectLanguages")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("projectLastUpdate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("projectLink")
                         .HasColumnType("nvarchar(max)");
 
@@ -160,6 +167,9 @@ namespace SIGPIP.Migrations
                     b.Property<string>("projectRepoLink")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("projectUploadDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<byte[]>("projectZipData")
                         .IsRequired()

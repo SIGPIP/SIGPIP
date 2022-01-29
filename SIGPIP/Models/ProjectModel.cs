@@ -23,5 +23,11 @@ namespace SIGPIP.Models
         public byte[] projectZipData { get; set; }
         [Required]
         public string projectFramework { get; set; }
+        [Required]
+        public string projectLanguages { get; set; }
+        [Required]
+        public DateTime projectUploadDate { get; set; }
+        [Required]
+        public DateTime projectLastUpdate { get; set; }
     }
 }
