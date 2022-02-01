@@ -28,6 +28,62 @@
     </section>
     <!-- Main content -->
     <section class="content">
+        @{
+            IDictionary<string,int> languagesDict = new Dictionary<string,int>();
+            IDictionary<string,int> frameworksDict = new Dictionary<string,int>();
+            ProjectModel projectCreated = new ProjectModel();
+            ProjectModel projectUpdated = new ProjectModel();
+            int created = 0;
+            int updated = 0;
+        }
+        @foreach(ProjectModel project in @ViewBag.projects)
+        {
+            if (project.projectUploadDate.Month==DateTime.Now.Month || project.projectLastUpdate.Month==DateTime.Now.Month)
+            {
+                if (project.projectUploadDate.Month == DateTime.Now.Month)
+                {
+                    created += 1;
+                }
+                if (project.projectLastUpdate.Month == DateTime.Now.Month)
+                {
+                    updated += 1;
+                }
+                if (frameworksDict.ContainsKey(project.projectFramework))
+                {
+                    frameworksDict[project.projectFramework] += 1;
+                }
+                else
+                {
+                    frameworksDict.Add(project.projectFramework, 1);
+                }
+                string[] projectLanguages = project.projectLanguages.Split(',');
+                for(int i = 0; i < projectLanguages.Length; i++)
+                {
+                    if (languagesDict.ContainsKey(projectLanguages[i]))
+                    {
+                        languagesDict[projectLanguages[i]] += 1;
+                    }
+                    else
+                    {
+                        languagesDict.Add(projectLanguages[i], 1);
+                    }
+                }
+                if (projectCreated.projectName == null && project.projectUploadDate.Month == DateTime.Now.Month)
+                {
+                    projectCreated = project;
+                }else if(projectCreated.projectUploadDate < project.projectUploadDate && projectCreated.projectName != null)
+                {
+                    projectCreated = project;
+                }
+                if (projectUpdated.projectName == null && project.projectLastUpdate.Month == DateTime.Now.Month)
+                {
+                    projectUpdated = project;
+                }else if(projectUpdated.projectLastUpdate < project.projectLastUpdate && projectUpdated.projectName != null)
+                {
+                    projectUpdated = project;
+                }
+            }  
+        }
         <div class="row justify-content-center">
             <div class="col-6 col-sm-4 col-md-3">
                 <div class="card text-white bg-dark">
@@ -37,7 +93,7 @@
                             </p>
                         </h2>
                         <h1 style=font-size:80px><p align="center">
-                            2
+                            @created
                             </p>
                         </h1>
                     </div>
@@ -51,7 +107,7 @@
                             </p>
                         </h2>
                         <h1 style=font-size:80px><p align="center">
-                            3
+                            @updated
                             </p>
                         </h1>
                     </div>
@@ -66,14 +122,13 @@
                         google.charts.load("current", {packages:['corechart']});
                         google.charts.setOnLoadCallback(drawChart);
                         function drawChart() {
-                          var data = google.visualization.arrayToDataTable([
-                            ["Element", "Density",],
-                            ["Copper", 8.94,],
-                            ["Silver", 10.49,],
-                            ["Gold", 19.30,],
-                            ["Platinum", 21.45,]
-                          ]);
-
+                            var data = new google.visualization.DataTable();
+                            data.addColumn('string', 'Framework');
+                            data.addColumn('number', 'Usages');
+                            @for(int i = 0; i < frameworksDict.Count(); i++)
+                            {
+                                @: data.addRows([["@frameworksDict.ElementAt(i).Key.ToUpper()",@frameworksDict.ElementAt(i).Value]]);
+                            }
                           var view = new google.visualization.DataView(data);
                           view.setColumns([0, 1,
                                            { calc: "stringify",
@@ -114,15 +169,12 @@
 
                         // Create the data table.
                         var data = new google.visualization.DataTable();
-                        data.addColumn('string', 'Topping');
-                        data.addColumn('number', 'Slices');
-                        data.addRows([
-                          ['Mushrooms', 3],
-                          ['Onions', 1],
-                          ['Olives', 1],
-                          ['Zucchini', 1],
-                          ['Pepperoni', 2]
-                        ]);
+                        data.addColumn('string', 'Languages');
+                        data.addColumn('number', 'Usages');
+                        @for(int i = 0; i < languagesDict.Count(); i++)
+                        {
+                            @: data.addRows([["@languagesDict.ElementAt(i).Key.ToUpper()",@languagesDict.ElementAt(i).Value]]);
+                        }
                         // Set chart options
                         var options = {'height': 400,"is3D":true, "fontSize":17};
 
@@ -144,15 +196,21 @@
                   <div class="card-header" style="background-color:#D9DADB; color:black">
                         <h3>Latest created project</h3>
                   </div>
-                  <div class="card-body" style="padding-top:0">
-                    <h2>NOMBRE DEL PROYECTO</h2>
-                    <p class="card-text">DESCRIPCION DEL PROYECTO</p>
-                    <p class="card-text">FRAMEWORK: FRAMEWORK DEL PROYECTO</p>
-                    <p class="card-text">LANGUAGES: LENGUAJES DEL PROYECTO</p>
-                  </div>
-                  <div class="card-footer bg-transparent border-grey"style="padding:8px">
-                      <h4>CREATED DATE: FECHA DE CREACIÓN</h4>
-                  </div>
+                  @{if(projectCreated.projectName != null){       
+                     <div class="card-body" style="padding-top:0" >
+                        <h1 hidden id="createdProjectLbl">No projects found</h1>
+                        <h2>@projectCreated.projectName.ToUpper()</h2>
+                        <p class="card-text">@projectCreated.projectDescription</p>
+                        <p class="card-text">FRAMEWORK: @projectCreated.projectFramework</p>
+                        <p class="card-text">LANGUAGES:´@projectCreated.projectLanguages</p>
+                      </div>
+                      <div class="card-footer bg-transparent border-grey"style="padding:8px">
+                          <h4>CREATED DATE: @projectCreated.projectUploadDate.ToString("dd/MM/yyyy")</h4>
+                      </div>
+                    }else{
+                        <h1  align="center" style="padding:8px">No projects found</h1>
+                    }
+                   }
                 </div>
             </div>
             <div class="col-6">
@@ -160,15 +218,20 @@
                   <div class="card-header" style="background-color:#D9DADB; color:black">
                         <h3>Latest updated project</h3>
                   </div>
-                  <div class="card-body" style="padding-top:0">
-                    <h2>NOMBRE DEL PROYECTO</h2>
-                    <p class="card-text">DESCRIPCION DEL PROYECTO</p>
-                    <p class="card-text">FRAMEWORK: FRAMEWORK DEL PROYECTO</p>
-                    <p class="card-text">LANGUAGES: LENGUAJES DEL PROYECTO</p>
-                  </div>
-                  <div class="card-footer bg-transparent border-grey"style="padding:8px">
-                      <h4>UPDATED DATE: FECHA DE ACTUALIZACIÓN</h4>
-                  </div>
+                  @{if(projectUpdated.projectName != null){       
+                     <div class="card-body" style="padding-top:0" >
+                        <h2>@projectUpdated.projectName.ToUpper()</h2>
+                        <p class="card-text">@projectUpdated.projectDescription</p>
+                        <p class="card-text">FRAMEWORK: @projectUpdated.projectFramework</p>
+                        <p class="card-text">LANGUAGES:´@projectUpdated.projectLanguages</p>
+                      </div>
+                      <div class="card-footer bg-transparent border-grey"style="padding:8px">
+                          <h4>UPDATED DATE: @projectUpdated.projectLastUpdate.ToString("dd/MM/yyyy")</h4>
+                      </div>
+                    }else{
+                        <h1  align="center" style="padding:8px">No projects found</h1>
+                    }
+                   }
                 </div>
             </div>
         </div>

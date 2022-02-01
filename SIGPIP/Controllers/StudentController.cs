@@ -44,6 +44,7 @@ namespace SIGPIP.Controllers
                     ViewBag.studentName = HttpContext.Session.GetString("studentName");
                     ViewBag.studentIdLogged = HttpContext.Session.GetString("studentIdLogged");
                     ViewBag.studentEmail = HttpContext.Session.GetString("studentEmail");
+
                     return View(studentProjects);
                     
                 }
@@ -70,6 +71,7 @@ namespace SIGPIP.Controllers
                     ViewBag.studentName = HttpContext.Session.GetString("studentName");
                     ViewBag.studentIdLogged = HttpContext.Session.GetString("studentIdLogged");
                     ViewBag.studentEmail = HttpContext.Session.GetString("studentEmail");
+                    ViewBag.projects = this.GetProject(HttpContext.Session.GetString("studentIdLogged"));
                     return View(studentProjects);
 
                 }
