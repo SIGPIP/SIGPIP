@@ -1,0 +1,177 @@
+﻿@using Newtonsoft.Json
+@using System.Globalization
+@model List<ProjectModel>
+
+
+@{
+    ViewData["Title"] = "Report";
+    Layout = "~/Views/Shared/_LayoutPortfolio.cshtml";
+}
+
+<div class="content-wrapper">
+    
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Monthly Report
+        </h1>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><i class="fas fa-compass"></i> Home</li>
+            <li class="breadcrumb-item active">Report</li>
+        </ol>
+    </section>
+    <br />
+    <section class="content-header">
+        <h2 ><p align="center">
+            @DateTime.Now.ToString("MMMM", CultureInfo.CreateSpecificCulture("en-US")).ToUpper()</p>
+        </h2>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <div class="row justify-content-center">
+            <div class="col-6 col-sm-4 col-md-3">
+                <div class="card text-white bg-dark">
+                    <div class="card-body">
+                        <h2><p align="center">
+                            Projects created this month
+                            </p>
+                        </h2>
+                        <h1 style=font-size:80px><p align="center">
+                            2
+                            </p>
+                        </h1>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-sm-4 col-md-3">
+                <div class="card text-white bg-dark">
+                    <div class="card-body">
+                        <h2><p align="center">
+                            Projects updated this month
+                            </p>
+                        </h2>
+                        <h1 style=font-size:80px><p align="center">
+                            3
+                            </p>
+                        </h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-7">
+                <div class="card">
+                    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                      <script type="text/javascript">
+                        google.charts.load("current", {packages:['corechart']});
+                        google.charts.setOnLoadCallback(drawChart);
+                        function drawChart() {
+                          var data = google.visualization.arrayToDataTable([
+                            ["Element", "Density",],
+                            ["Copper", 8.94,],
+                            ["Silver", 10.49,],
+                            ["Gold", 19.30,],
+                            ["Platinum", 21.45,]
+                          ]);
+
+                          var view = new google.visualization.DataView(data);
+                          view.setColumns([0, 1,
+                                           { calc: "stringify",
+                                             sourceColumn: 1,
+                                             type: "string",
+                                             role: "annotation" }]);
+
+                          var options = {
+                            height: 400,
+                            bar: {groupWidth: "95%"},
+                            legend: { position: "none" }, "fontSize":17
+                          };
+                          var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
+                          chart.draw(view, options);
+                      }
+                      </script>
+                    <div class="card-body">
+                        <h3 class="card-title" style="background-color:#D9DADB; color:black" align="center">Most used frameworks this month</h3>
+                        <div id="columnchart_values"></div>
+                    </div>
+                </div>
+            </div>
+           <div class="col-5">
+                <div class="card">
+                    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                    <script type="text/javascript">
+
+                      // Load the Visualization API and the corechart package.
+                      google.charts.load('current', {'packages':['corechart']});
+
+                      // Set a callback to run when the Google Visualization API is loaded.
+                      google.charts.setOnLoadCallback(drawChart);
+
+                      // Callback that creates and populates a data table,
+                      // instantiates the pie chart, passes in the data and
+                      // draws it.
+                      function drawChart() {
+
+                        // Create the data table.
+                        var data = new google.visualization.DataTable();
+                        data.addColumn('string', 'Topping');
+                        data.addColumn('number', 'Slices');
+                        data.addRows([
+                          ['Mushrooms', 3],
+                          ['Onions', 1],
+                          ['Olives', 1],
+                          ['Zucchini', 1],
+                          ['Pepperoni', 2]
+                        ]);
+                        // Set chart options
+                        var options = {'height': 400,"is3D":true, "fontSize":17};
+
+                        // Instantiate and draw our chart, passing in some options.
+                        var chart = new google.visualization.PieChart(document.getElementById('chart_div1'));
+                        chart.draw(data, options);
+                      }
+                    </script>
+                    <div class="card-body">
+                        <h3 class="card-title" style="background-color:#D9DADB; color:black" align="center">Most used languages this month</h3>
+                        <div id="chart_div1"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-6">
+                <div class="card text-dark">
+                  <div class="card-header" style="background-color:#D9DADB; color:black">
+                        <h3>Latest created project</h3>
+                  </div>
+                  <div class="card-body" style="padding-top:0">
+                    <h2>NOMBRE DEL PROYECTO</h2>
+                    <p class="card-text">DESCRIPCION DEL PROYECTO</p>
+                    <p class="card-text">FRAMEWORK: FRAMEWORK DEL PROYECTO</p>
+                    <p class="card-text">LANGUAGES: LENGUAJES DEL PROYECTO</p>
+                  </div>
+                  <div class="card-footer bg-transparent border-grey"style="padding:8px">
+                      <h4>CREATED DATE: FECHA DE CREACIÓN</h4>
+                  </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="card text-dark">
+                  <div class="card-header" style="background-color:#D9DADB; color:black">
+                        <h3>Latest updated project</h3>
+                  </div>
+                  <div class="card-body" style="padding-top:0">
+                    <h2>NOMBRE DEL PROYECTO</h2>
+                    <p class="card-text">DESCRIPCION DEL PROYECTO</p>
+                    <p class="card-text">FRAMEWORK: FRAMEWORK DEL PROYECTO</p>
+                    <p class="card-text">LANGUAGES: LENGUAJES DEL PROYECTO</p>
+                  </div>
+                  <div class="card-footer bg-transparent border-grey"style="padding:8px">
+                      <h4>UPDATED DATE: FECHA DE ACTUALIZACIÓN</h4>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
+</div>

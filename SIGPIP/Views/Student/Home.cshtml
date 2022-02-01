@@ -81,19 +81,36 @@
                 </div>
 
                 <div>
+                    @{IDictionary<string,int> languagesDict = new Dictionary<string,int>();
+                      IDictionary<string,int> frameworksDict = new Dictionary<string,int>();}
                     @foreach (var project in Model)
                     {
+                        if (frameworksDict.ContainsKey(project.projectFramework))
+                        {
+                            frameworksDict[project.projectFramework] += 1;
+                        }
+                        else
+                        {
+                            frameworksDict.Add(project.projectFramework, 1);
+                        }
+                        string[] projectLanguages = project.projectLanguages.Split(',');
+                        for(int i = 0; i < projectLanguages.Length; i++)
+                        {
+                            if (languagesDict.ContainsKey(projectLanguages[i]))
+                            {
+                                languagesDict[projectLanguages[i]] += 1;
+                            }
+                            else
+                            {
+                                languagesDict.Add(projectLanguages[i], 1);
+                            }
+                        }
                         <div>
-                            @{string base64String = Convert.ToBase64String(@project.projectImageData, 0, @project.projectImageData.Length);
-                              var imageSource = "data:application/pdf;base64," + base64String;}
-                            <img src="@imageSource" width="300" height="200"/>
                             <h2>@project.projectName</h2>
                             <p>@project.projectDescription</p>
                             <a href="@project.projectLink">Uploaded link</a><br/>
                             <a href="@project.projectRepoLink">Uploaded link</a>
                             <p>@project.projectFramework</p>
-                            @{string base64StringZip = Convert.ToBase64String(@project.projectZipData, 0, @project.projectZipData.Length);}
-                            <button onclick="base64ToArrayBuffer('@base64StringZip', '@project.projectName')">Download project ZIP</button>
                             <div>
                                 @{string jsonObject = JsonConvert.SerializeObject(project);}
                                 <button onclick="editProject('@jsonObject')">Edit</button>
@@ -107,6 +124,66 @@
             </div>
         </div>
 
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title">Your favourite technologies</h3>
+                <ul class="box-controls pull-right">
+                    <li><a class="box-btn-slide" href="#"></a></li>
+                </ul>
+            </div>
+            <div class="box-body">
+                <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                <script type="text/javascript">
+
+                  // Load the Visualization API and the corechart package.
+                  google.charts.load('current', {'packages':['corechart']});
+
+                  // Set a callback to run when the Google Visualization API is loaded.
+                  google.charts.setOnLoadCallback(drawChart);
+
+                  // Callback that creates and populates a data table,
+                  // instantiates the pie chart, passes in the data and
+                  // draws it.
+                  function drawChart() {
+                        
+                    // Create the data table.
+                    var data = new google.visualization.DataTable();
+                    data.addColumn('string', 'Framework');
+                    data.addColumn('number', 'Usages');
+                    @for(int i = 0; i < frameworksDict.Count(); i++)
+                    {
+                        @: data.addRows([["@frameworksDict.ElementAt(i).Key.ToUpper()",@frameworksDict.ElementAt(i).Value]]);
+                    }
+
+                    var dataLgs = new google.visualization.DataTable();
+                    dataLgs.addColumn('string', 'Languages');
+                    dataLgs.addColumn('number', 'Usages');
+                    @for(int i = 0; i < languagesDict.Count(); i++)
+                    {
+                        @: dataLgs.addRows([["@languagesDict.ElementAt(i).Key.ToUpper()",@languagesDict.ElementAt(i).Value]]);
+                    }
+
+                    // Set chart options
+                    var options = {'title':'Favourite Frameworks', "is3D":true, "fontSize":17, "height":500, "fontName": 'Poppins, sans-serif'};
+                    var optionsLgs = {'title':'Favourite Programming Languages',"is3D":true,"fontSize":17,"height":500, "fontName": 'Poppins, sans-serif'};
+
+                    // Instantiate and draw our chart, passing in some options.
+                    var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+                    chart.draw(data, options);
+                    var chartLgs = new google.visualization.PieChart(document.getElementById('chart_div_Lgs'));
+                    chartLgs.draw(dataLgs, optionsLgs);
+                  }
+                </script>
+                <div class="row justify-content-between">
+                    <div class="col-6">
+                        <div id="chart_div" ></div>
+                    </div>
+                    <div class="col-6">
+                        <div id="chart_div_Lgs" ></div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
     
 </div>

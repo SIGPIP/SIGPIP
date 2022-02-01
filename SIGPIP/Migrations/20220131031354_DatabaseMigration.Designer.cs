@@ -10,8 +10,8 @@ using SIGPIP.Context;
 namespace SIGPIP.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20220129025107_SigpipMigration")]
-    partial class SigpipMigration
+    [Migration("20220131031354_DatabaseMigration")]
+    partial class DatabaseMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -174,7 +174,6 @@ namespace SIGPIP.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<byte[]>("projectZipData")
-                        .IsRequired()
                         .HasColumnType("varbinary(max)");
 
                     b.Property<Guid>("studentId")
