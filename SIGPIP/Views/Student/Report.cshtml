@@ -31,6 +31,7 @@
         @{
             IDictionary<string,int> languagesDict = new Dictionary<string,int>();
             IDictionary<string,int> frameworksDict = new Dictionary<string,int>();
+            IDictionary<string,int> projectsDict = new Dictionary<string,int>();
             ProjectModel projectCreated = new ProjectModel();
             ProjectModel projectUpdated = new ProjectModel();
             int created = 0;
@@ -38,6 +39,20 @@
         }
         @foreach(ProjectModel project in @ViewBag.projects)
         {
+            if(projectsDict.Count==0)
+            {
+                projectsDict.Add(project.projectUploadDate.ToString("MM") + "/" + project.projectUploadDate.ToString("yy"), 1);
+                DateTime actualDate = project.projectUploadDate;
+                while(actualDate.Month!=DateTime.Now.AddMonths(1).Month || actualDate.Year != DateTime.Now.Year)
+                {
+                    actualDate=actualDate.AddMonths(1);
+                    projectsDict.Add(actualDate.ToString("MM") + "/" + actualDate.ToString("yy"), 0);
+                }
+            }
+            else
+            {  
+                projectsDict[project.projectUploadDate.ToString("MM") + "/" + project.projectUploadDate.ToString("yy")] += 1;
+            }
             if (project.projectUploadDate.Month==DateTime.Now.Month || project.projectLastUpdate.Month==DateTime.Now.Month)
             {
                 if (project.projectUploadDate.Month == DateTime.Now.Month)
@@ -84,6 +99,28 @@
                 }
             }  
         }
+        @{
+            int projected = 3;
+            int months = 0;
+            int projectsN = 0;
+            if (projectsDict.Count > 2)
+            {
+                while (projectsDict.Count() - 2 - months!=-1)
+                {
+                    if (months != 3)
+                    {
+                        projectsN += (projectsDict.ElementAt(projectsDict.Count() - 2 - months).Value);
+                        months += 1;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                projected = projectsN / months;
+            }
+            projectsDict[DateTime.Now.AddMonths(1).ToString("MM") + "/" + DateTime.Now.AddMonths(1).ToString("yy")]= projected;
+        }
         <div class="row justify-content-center">
             <div class="col-6 col-sm-4 col-md-3">
                 <div class="card text-white bg-dark">
@@ -110,6 +147,57 @@
                             @updated
                             </p>
                         </h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+         <div class="row justify-content-center">
+             <div class="col-12 col-md-5">
+                <div class="card d-flex align-items-stretch">
+                    <div class="card-body">
+                        <div class="col-12">
+                            <div class="card text-white bg-dark">
+                                <div class="card-body">
+                                    <h2><p align="center">
+                                        Projected number of project next month
+                                        </p>
+                                    </h2>
+                                    <h1 style=font-size:80px><p align="center">
+                                        @projected
+                                        </p>
+                                    </h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-7">
+                <div class="card">
+                    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                      <script type="text/javascript">
+                        google.charts.load("current", {packages:['corechart']});
+                        google.charts.setOnLoadCallback(drawChart);
+                        function drawChart() {
+                            var data = new google.visualization.DataTable();
+                            data.addColumn('string', 'Month');
+                            data.addColumn('number', 'Projects');
+                            @for(int i = 0; i < projectsDict.Count(); i++)
+                            {
+                                @: data.addRows([["@projectsDict.ElementAt(i).Key",@projectsDict.ElementAt(i).Value]]);
+                            }
+                          var options = {
+                            height: 400,
+                            bar: {groupWidth: "95%"},
+                            legend: { position: "none" }, "fontSize":17
+                          };
+                          var chart = new google.visualization.LineChart(document.getElementById("curve_values"));
+                          chart.draw(data, options);
+                      }
+                      </script>
+                    <div class="card-body">
+                        <h3 class="card-title" style="background-color:#D9DADB; color:black" align="center">Most used frameworks this month</h3>
+                        <div id="curve_values"></div>
                     </div>
                 </div>
             </div>

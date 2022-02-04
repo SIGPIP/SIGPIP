@@ -348,6 +348,7 @@ namespace SIGPIP.Controllers
                         projectLst.Add(projectList[i]);
                     }
                 }
+                projectLst=projectLst.OrderBy(project=>project.projectUploadDate).ToList();
                 return (projectLst);
             }
             catch (Exception ex)
