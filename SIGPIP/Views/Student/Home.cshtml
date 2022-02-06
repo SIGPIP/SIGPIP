@@ -1,7 +1,6 @@
 ﻿@using Newtonsoft.Json
 @model List<ProjectModel>
 
-
 @{
     ViewData["Title"] = "Home";
     Layout = "~/Views/Shared/_LayoutPortfolio.cshtml";
@@ -9,17 +8,7 @@
 
 <div class="content-wrapper">
 
-    <!-- Content Header (Page header) -->
-    <!-- Main content -->
-
     <section class="content">
-        <!--
-            <h1>Home</h1>
-
-        <p>Welcome! @ViewBag.studentName</p>
-        <p>Yout ID is: @ViewBag.studentIdLogged</p>
-
-        -->
 
         <div class="box">
             <div class="box-header with-border">
@@ -54,15 +43,13 @@
                                 <div class="controls">
                                     <input name="projectName" id="projectName" class="form-control" required data-validation-required-message="This field is required">
                                 </div>
-                                @*<input name="projectName" id="projectName" class="form-control" />*@
-                                @*<span validation-for="projectName" class="text-danger"></span>*@
                             </div>
                         </div>
                         <div class="col-8">
                             <div class="form-group">
                                 <label for="projectDescription">Description <span class="text-danger">*</span></label>
                                 <div class="controls">
-                                    <input name="projectDescription" id="projectDescription" class="form-control" required data-validation-required-message="This field is required">
+                                    <input name="projectDescription" id="projectDescription" class="form-control" required data-validation-required-message="This field is required" maxlength="175">
                                 </div>
                                 @*<span validation-for="projectDescription" class="text-danger"></span>*@
                             </div>
@@ -71,13 +58,13 @@
                     <div class="row">
                         <div class="col-6">
                             <div class="form-group">
-                                <label for="projectLink">Link to find the project</label>
+                                <label for="projectLink">Link to find the project (Optional)</label>
                                 <div class="controls">
                                     <input name="projectLink" id="projectLink" class="form-control" placeholder="Add URL"
                                            data-validation-regex-regex="((http[s]?|ftp[s]?):\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*"
                                            data-validation-regex-message="Only Valid URL's">
                                 </div>
-                                <span validation-for="projectLink" class="text-danger"></span>
+                                @*<span validation-for="projectLink" class="text-danger"></span>*@
                             </div>
                         </div>
                         <div class="col-6">
@@ -88,7 +75,7 @@
                                            data-validation-regex-regex="((http[s]?|ftp[s]?):\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*"
                                            data-validation-regex-message="Only Valid URL's" required data-validation-required-message="This field is required">
                                 </div>
-                                <span validation-for="projectRepoLink" class="text-danger"></span>
+                                @*<span validation-for="projectRepoLink" class="text-danger"></span>*@
                             </div>
                         </div>
                     </div>
@@ -99,7 +86,7 @@
                                 <div class="controls">
                                     <input name="projectFramework" id="projectFramework" class="form-control" required data-validation-required-message="This field is required">
                                 </div>
-                                <span validation-for="projectFramework" class="text-danger"></span>
+                                @*<span validation-for="projectFramework" class="text-danger"></span>*@
                             </div>
                         </div>
                         <div class="col-6">
@@ -108,7 +95,7 @@
                                 <div class="controls">
                                     <input name="projectLanguages" id="projectLanguages" class="form-control" required data-validation-required-message="This field is required">
                                 </div>
-                                <span validation-for="projectLanguages" class="text-danger"></span>
+                                @*<span validation-for="projectLanguages" class="text-danger"></span>*@
                             </div>
                         </div>
                     </div>
@@ -117,7 +104,7 @@
                         <div class="col-6">
                             <label for="exampleInputFile"><b>Select Image </b><span class="text-danger">*</span></label>
                             <div class="controls">
-                                <input type="file" class="form-control" name="files" id="files" accept="image/*" required>
+                                <input type="file" class="form-control" name="files" id="files" accept="image/*">
                             </div>
                             <div style="text-align: center;">
                                 <br />
@@ -127,7 +114,7 @@
                         <div class="col-6">
                             <label for="exampleInputFile"><b>Choose Zip File </b><span class="text-danger">*</span></label>
                             <div class="controls">
-                                <input type="file" class="form-control" name="files" id="zip" accept=".zip,.rar,.7zip" required>
+                                <input type="file" class="form-control" name="files" id="zip" accept=".zip,.rar,.7zip">
                             </div>
                         </div>
                     </div>
@@ -151,7 +138,7 @@
                 @if (Model.Count == 0)
                 {
                     <div style="text-align: center;">
-                        <h2>This is very empty</h2>
+                        <h2>This is very empty!</h2>
                         <h3>*Cricket Sounds*</h3>
                         <h4>
                             To add a new project go to the "Add a New Project" section and start storing and managing
@@ -183,7 +170,14 @@
                                         <div class="card__front" style="background-image: url(@imageSource);">
                                             <div class="bg"></div>
                                             <div class="body__card_front">
-                                                <h1>@Model.ElementAt(i).projectDescription</h1>
+                                                @if (@Model.ElementAt(i).projectDescription.Length <= 85)
+                                                {
+                                                    <h1>@Model.ElementAt(i).projectDescription</h1>
+                                                }
+                                                else
+                                                {
+                                                    <h3>@Model.ElementAt(i).projectDescription</h3>
+                                                }
                                             </div>
                                         </div>
                                         <div class="card__back">
@@ -213,14 +207,14 @@
                         {
                             <div>
                                 @{
-                                    base64String = Convert.ToBase64String(@Model.ElementAt(i+1).projectImageData, 0, @Model.ElementAt(i+1).projectImageData.Length);
+                                    base64String = Convert.ToBase64String(@Model.ElementAt(i + 1).projectImageData, 0, @Model.ElementAt(i + 1).projectImageData.Length);
                                     imageSource = "data:application/pdf;base64," + base64String;
                                 }
                                 @{
-                                    base64StringZip = Convert.ToBase64String(@Model.ElementAt(i+1).projectZipData, 0, @Model.ElementAt(i+1).projectZipData.Length);
+                                    base64StringZip = Convert.ToBase64String(@Model.ElementAt(i + 1).projectZipData, 0, @Model.ElementAt(i + 1).projectZipData.Length);
                                 }
                                 @{
-                                    jsonObject = JsonConvert.SerializeObject(@Model.ElementAt(i+1));
+                                    jsonObject = JsonConvert.SerializeObject(@Model.ElementAt(i + 1));
                                 }
                             </div>
                             <div class="col-6">
@@ -231,7 +225,14 @@
                                             <div class="card__front" style="background-image: url(@imageSource);">
                                                 <div class="bg"></div>
                                                 <div class="body__card_front">
-                                                    <h1>@Model.ElementAt(i+1).projectDescription</h1>
+                                                    @if (@Model.ElementAt(i + 1).projectDescription.Length <= 100)
+                                                    {
+                                                        <h1>@Model.ElementAt(i+1).projectDescription</h1>
+                                                    }
+                                                    else
+                                                    {
+                                                        <h3>@Model.ElementAt(i+1).projectDescription</h3>
+                                                    }
                                                 </div>
                                             </div>
                                             <div class="card__back">
@@ -257,60 +258,10 @@
                                     </div>
                                 </div>
                             </div>
-                            i += 1;
+                            i++;
                         }
                     </div>
                 }
-                @*@foreach (var project in Model)
-                    {
-                    <div>
-                    @{
-                    string base64String = Convert.ToBase64String(@project.projectImageData, 0, @project.projectImageData.Length);
-                    var imageSource = "data:application/pdf;base64," + base64String;
-                    }
-                    @{
-                    string base64StringZip = Convert.ToBase64String(@project.projectZipData, 0, @project.projectZipData.Length);
-                    }
-                    @{
-                    string jsonObject = JsonConvert.SerializeObject(project);
-                    }
-                    </div>
-
-                    <div class="container__card">
-
-                    <div class="card__father">
-                    <div class="card">
-                    <div class="card__front" style="background-image: url(@imageSource);">
-                    <div class="bg"></div>
-                    <div class="body__card_front">
-                    <h1>@project.projectDescription</h1>
-                    </div>
-                    </div>
-                    <div class="card__back">
-                    <div class="body__card_back">
-                    <h1>@project.projectName</h1>
-                    <p>
-                    @if (@project.projectLink != null)
-                    {
-                    <a href="@project.projectLink" target="_blank" rel="noopener noreferrer">Uploaded link</a>
-
-                    <br />
-                    }
-                    <a href="@project.projectRepoLink" target="_blank" rel="noopener noreferrer">Repository Link</a><br />
-                    <p>@project.projectFramework</p>
-
-                    <button onclick="base64ToArrayBuffer('@base64StringZip', '@project.projectName')" class="btn btn-info">Download Project ZIP</button><div><br /></div>
-                    <button onclick="editProject('@jsonObject')" class="btn btn-success">Edit</button>
-
-                    <button onclick="deleteProject('@project.projectId')" class="btn btn-danger">Delete</button>
-                    </div>
-                    </div>
-                    </div>
-                    </div>
-                    </div>
-
-                    }*@
-
             </div>
         </div>
     </section>
@@ -336,9 +287,6 @@
 
     function editProject(project){
         var projectToEdit = JSON.parse(project);
-
-        //document.getElementById('files').removeAttribute('required');
-        //document.getElementById('zip').removeAttribute('required');
 
         document.getElementById('projectName').setAttribute('value', projectToEdit.projectName);
         document.getElementById('projectDescription').setAttribute('value', projectToEdit.projectDescription);
@@ -366,15 +314,12 @@
                 success: function(){
                     window.location.reload();
                 }
-            })
+            })       
         }
     }
 
     function cancelEdit(){
         console.log("cancel");
-
-        //document.getElementById('files').setAttribute('required', true);
-        //document.getElementById('zip').setAttribute('required', true);
 
         document.getElementById('projectName').setAttribute('value', '');
         document.getElementById('projectDescription').setAttribute('value', '');
@@ -416,4 +361,3 @@
     }
 </script>
 }
-

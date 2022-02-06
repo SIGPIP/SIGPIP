@@ -63,6 +63,7 @@ body{
     align-items: center;
     color: #fff;
     transform: translateZ(60px);
+	font-size: 12px;
 }
 
 .bg{
