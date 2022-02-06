@@ -103,12 +103,12 @@ namespace SIGPIP.Controllers
                 }
                 HttpContext.Session.SetString("loggedIn", "logged");
 
-                return RedirectToAction("Home");
+                return View("Home");
             }
             else
             {
                 TempData["errorLogin"] = "This user does not exist or check the information";
-                return View();
+                return View("Login");
             }
         }
 
@@ -157,11 +157,11 @@ namespace SIGPIP.Controllers
                                 studentConfirmPassword = hashPass,
                                 studentSemester = student.studentSemester
                             };
-                            HttpContext.Session.SetString("nowStudentId", studentModel.studentId.ToString());
+                            //HttpContext.Session.SetString("nowStudentId", studentModel.studentId.ToString());
                             _databaseContext.Student.Add(studentModel);
                             _databaseContext.SaveChanges();
                             TempData["successRegister"] = "Account created successfully!";
-                            return RedirectToAction("Login", studentModel);
+                            return View("Login", studentModel);
                         }
                         catch (Exception ex)
                         {
@@ -175,7 +175,7 @@ namespace SIGPIP.Controllers
             {
                 TempData["errorRegister"] = "Account could not be created";
             }
-            return View();
+            return View("Register");
         }
 
         [HttpGet]
@@ -328,7 +328,7 @@ namespace SIGPIP.Controllers
         public IActionResult Logout()
         {
             HttpContext.Session.Clear();
-            return RedirectToAction("Login");
+            return View("Login");
         }
 
         [HttpGet]

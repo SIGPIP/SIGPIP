@@ -10,8 +10,8 @@ using SIGPIP.Context;
 namespace SIGPIP.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20220117121817_SIGPIPMigration")]
-    partial class SIGPIPMigration
+    [Migration("20220130221949_DatabaseMigration")]
+    partial class DatabaseMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
