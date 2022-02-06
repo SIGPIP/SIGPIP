@@ -123,6 +123,7 @@ namespace SIGPIP.Controllers
                     _databaseContext.Study.Remove(studyModel);
                     _databaseContext.SaveChanges();
                     TempData["successDeletingStudy"] = "Study deleted successfully!";
+                    return View("Home");
                 }
                 else
                 {

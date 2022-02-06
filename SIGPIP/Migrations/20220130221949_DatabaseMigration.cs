@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SIGPIP.Migrations
 {
-    public partial class SIGPIPMigration : Migration
+    public partial class DatabaseMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
