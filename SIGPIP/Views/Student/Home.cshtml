@@ -6,6 +6,13 @@
     Layout = "~/Views/Shared/_LayoutPortfolio.cshtml";
 }
 
+<style>
+    #chart_div,
+    #chart_div_Lgs{
+        overflow: auto;
+    }
+</style>
+
 <div class="content-wrapper">
 
     <section class="content">
@@ -185,7 +192,7 @@
                         }
                     </div>
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col-lg-6 col-md-6 col-sm-12">
                             <div class="container__card">
 
                                 <div class="card__father">
@@ -240,7 +247,7 @@
                                     jsonObject = JsonConvert.SerializeObject(@Model.ElementAt(i + 1));
                                 }
                             </div>
-                            <div class="col-6">
+                            <div class="col-lg-6 col-md-6 col-sm-12">
                                 <div class="container__card">
 
                                     <div class="card__father">
