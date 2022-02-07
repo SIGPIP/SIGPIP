@@ -44,6 +44,7 @@ namespace SIGPIP.Controllers
                     ViewBag.studentName = HttpContext.Session.GetString("studentName");
                     ViewBag.studentIdLogged = HttpContext.Session.GetString("studentIdLogged");
                     ViewBag.studentEmail = HttpContext.Session.GetString("studentEmail");
+
                     return View(studentProjects);
                     
                 }
@@ -53,9 +54,7 @@ namespace SIGPIP.Controllers
                 }
             }
         }
-
-
-        public IActionResult PendingProjects()
+        public IActionResult Report()
         {
             if (LoggedInVerify() == false)
             {
@@ -63,25 +62,23 @@ namespace SIGPIP.Controllers
             }
             else
             {
-                ViewBag.studentName = HttpContext.Session.GetString("studentName");
-                ViewBag.studentIdLogged = HttpContext.Session.GetString("studentIdLogged");
-                ViewBag.studentEmail = HttpContext.Session.GetString("studentEmail");
-                return View();
-            }
-        }
+                try
+                {
+                    var studentIdLogged = Guid.Parse(HttpContext.Session.GetString("studentIdLogged"));
 
-        public IActionResult DesiredProjects()
-        {
-            if (LoggedInVerify() == false)
-            {
-                return RedirectToAction("Login");
-            }
-            else
-            {
-                ViewBag.studentName = HttpContext.Session.GetString("studentName");
-                ViewBag.studentIdLogged = HttpContext.Session.GetString("studentIdLogged");
-                ViewBag.studentEmail = HttpContext.Session.GetString("studentEmail");
-                return View();
+                    List<ProjectModel> studentProjects = _databaseContext.Project.Where(p => p.studentId == studentIdLogged).ToList();
+
+                    ViewBag.studentName = HttpContext.Session.GetString("studentName");
+                    ViewBag.studentIdLogged = HttpContext.Session.GetString("studentIdLogged");
+                    ViewBag.studentEmail = HttpContext.Session.GetString("studentEmail");
+                    ViewBag.projects = this.GetProject(HttpContext.Session.GetString("studentIdLogged"));
+                    return View(studentProjects);
+
+                }
+                catch (Exception ex)
+                {
+                    return NotFound();
+                }
             }
         }
 
@@ -337,6 +334,30 @@ namespace SIGPIP.Controllers
         }
 
         [HttpGet]
+        private List<ProjectModel> GetProject(String studentId)
+        {
+            Guid _id = new Guid(studentId);
+            try
+            {
+                var projectList = _databaseContext.Project.ToList();
+                var projectLst = new List<ProjectModel>();
+                for (int i = 0; i < projectList.Count; i++)
+                {
+                    if (projectList[i].studentId == _id)
+                    {
+                        projectLst.Add(projectList[i]);
+                    }
+                }
+                projectLst=projectLst.OrderBy(project=>project.projectUploadDate).ToList();
+                return (projectLst);
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        [HttpGet]
         public IActionResult Logout()
         {
             HttpContext.Session.Clear();
@@ -363,6 +384,7 @@ namespace SIGPIP.Controllers
                 ViewBag.studentBio = HttpContext.Session.GetString("studentBio");
                 ViewBag.studies = this.GetStudy(HttpContext.Session.GetString("studentIdLogged"));
                 ViewBag.references = this.GetReference(HttpContext.Session.GetString("studentIdLogged"));
+                ViewBag.projects = this.GetProject(HttpContext.Session.GetString("studentIdLogged"));
                 return View();
             }
         }
