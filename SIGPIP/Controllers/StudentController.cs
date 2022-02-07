@@ -35,10 +35,22 @@ namespace SIGPIP.Controllers
             }
             else
             {
-                ViewBag.studentName = HttpContext.Session.GetString("studentName");
-                ViewBag.studentIdLogged = HttpContext.Session.GetString("studentIdLogged");
-                ViewBag.studentEmail = HttpContext.Session.GetString("studentEmail");
-                return View();
+                try
+                {
+                    var studentIdLogged = Guid.Parse(HttpContext.Session.GetString("studentIdLogged"));
+
+                    List<ProjectModel> studentProjects = _databaseContext.Project.Where(p => p.studentId == studentIdLogged).ToList();
+
+                    ViewBag.studentName = HttpContext.Session.GetString("studentName");
+                    ViewBag.studentIdLogged = HttpContext.Session.GetString("studentIdLogged");
+                    ViewBag.studentEmail = HttpContext.Session.GetString("studentEmail");
+                    return View(studentProjects);
+                    
+                }
+                catch (Exception ex)
+                {
+                    return NotFound();
+                }
             }
         }
 

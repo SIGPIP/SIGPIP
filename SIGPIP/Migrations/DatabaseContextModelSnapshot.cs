@@ -147,8 +147,15 @@ namespace SIGPIP.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("projectImageUrl")
+                    b.Property<byte[]>("projectImageData")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("projectLanguages")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("projectLastUpdate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("projectLink")
                         .HasColumnType("nvarchar(max)");
@@ -161,7 +168,14 @@ namespace SIGPIP.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("projectZipId")
+                    b.Property<DateTime>("projectUploadDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<byte[]>("projectZipData")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<Guid>("studentId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("projectId");

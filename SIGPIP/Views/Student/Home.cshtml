@@ -1,4 +1,5 @@
-﻿@model SIGPIP.Models.StudentModel
+﻿@using Newtonsoft.Json
+@model List<ProjectModel>
 
 
 @{
@@ -31,14 +32,175 @@
                 </ul>
             </div>
             <div class="box-body">
+               
+                @{Guid studentId = Guid.Empty, projectId = Guid.Empty;}
+
+                @{studentId = Guid.Parse(ViewBag.studentIdLogged);}
+
                 <div style="text-align: center;">
                     <h2><span style="color:dodgerblue">Coming Soon</span>, stay tuned @ViewBag.studentName !</h2>
+                    <form asp-action="RegisterStudentProject" asp-controller="Project" method="post" enctype="multipart/form-data">
+                        <input type="hidden" name="studentId" value=@studentId />
+                        <input type="hidden" name="projectId" id="projectId" value=@projectId />
+                        <div class="form-group">
+                            <label for="projectName">Name</label>
+                            <input name="projectName"  id="projectName" class="form-control"/> 
+                            <span validation-for="projectName" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="projectDescription">Description</label>
+                            <input name="projectDescription"  id="projectDescription" class="form-control"/> 
+                            <span validation-for="projectDescription" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="projectLink">Link to find the project</label>
+                            <input name="projectLink"  id="projectLink" class="form-control"/> 
+                            <span validation-for="projectLink" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="projectRepoLink">Repository link</label>
+                            <input name="projectRepoLink"  id="projectRepoLink" class="form-control"/> 
+                            <span validation-for="projectRepoLink" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="projectFramework">Framework o entorno usado</label>
+                            <input name="projectFramework"  id="projectFramework" class="form-control"/> 
+                            <span validation-for="projectFramework" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="projectLanguages">Lenguajes de programación usados (Separados por comas ",")</label>
+                            <input name="projectLanguages"  id="projectLanguages" class="form-control"/> 
+                            <span validation-for="projectLanguages" class="text-danger"></span>
+                        </div>
+                        <input type="file" name="files" id="files" accept="image/*"/>
+                        <img src="#" id="uploadedImage" width="200" height="100" hidden/>
+                        <input type="file" name="files" id="zip" accept=".zip,.rar,.7zip"/>
+                        <input type="submit" value="Upload" id="submitProject"/><br/>
+                    </form>
+                    <button onclick="cancelEdit()" id="cancelEditButton" hidden>Cancel</button>
                 </div>
+
+                <div>
+                    @foreach (var project in Model)
+                    {
+                        <div>
+                            @{string base64String = Convert.ToBase64String(@project.projectImageData, 0, @project.projectImageData.Length);
+                              var imageSource = "data:application/pdf;base64," + base64String;}
+                            <img src="@imageSource" width="300" height="200"/>
+                            <h2>@project.projectName</h2>
+                            <p>@project.projectDescription</p>
+                            <a href="@project.projectLink">Uploaded link</a><br/>
+                            <a href="@project.projectRepoLink">Uploaded link</a>
+                            <p>@project.projectFramework</p>
+                            @{string base64StringZip = Convert.ToBase64String(@project.projectZipData, 0, @project.projectZipData.Length);}
+                            <button onclick="base64ToArrayBuffer('@base64StringZip', '@project.projectName')">Download project ZIP</button>
+                            <div>
+                                @{string jsonObject = JsonConvert.SerializeObject(project);}
+                                <button onclick="editProject('@jsonObject')">Edit</button>
+                                <button onclick="deleteProject('@project.projectId')">Delete</button>
+                            </div>  
+                        </div>    
+                        <hr />
+                    }
+                </div>
+
             </div>
         </div>
 
     </section>
-    <!-- /.content -->
+    
 </div>
 
+@section scripts {
+    <script>
+
+        document.getElementById('files').onchange = function(evt){
+            var target = evt.target;
+            var files = target.files;
+
+            if (FileReader && files && files.length) {
+                var fr = new FileReader();
+                fr.onload = function () {
+                    document.getElementById('uploadedImage').removeAttribute('hidden');
+                    document.getElementById('uploadedImage').src = fr.result;
+                }
+                fr.readAsDataURL(files[0]);
+            }
+        }
+
+        function editProject(project){
+            var projectToEdit = JSON.parse(project);
+            
+            document.getElementById('projectName').setAttribute('value', projectToEdit.projectName); 
+            document.getElementById('projectDescription').setAttribute('value', projectToEdit.projectDescription); 
+            document.getElementById('projectLink').setAttribute('value', projectToEdit.projectLink); 
+            document.getElementById('projectRepoLink').setAttribute('value', projectToEdit.projectRepoLink); 
+            document.getElementById('projectFramework').setAttribute('value', projectToEdit.projectFramework); 
+            document.getElementById('projectLanguages').setAttribute('value', projectToEdit.projectLanguages); 
+            document.getElementById('projectId').setAttribute('value', projectToEdit.projectId); 
+            document.getElementById('submitProject').setAttribute('value', 'Edit'); 
+            document.getElementById('files').value = "";
+            document.getElementById('zip').value = "";
+            document.getElementById('cancelEditButton').removeAttribute('hidden'); 
+            document.getElementById('uploadedImage').removeAttribute('hidden'); 
+            document.getElementById('uploadedImage').setAttribute('src', "data:image/png;base64," + projectToEdit.projectImageData); 
+            
+            $('html, body').animate({ scrollTop: 0 }, 'fast');
+        }
+
+        function deleteProject(idProject){
+            if (confirm('¿Are you sure you want to delete this project?')) {
+                $.ajax({
+                    type: 'DELETE',
+                    url: '/Project/DeleteStudentProject',
+                    data: { projectId: idProject},
+                    success: function(){
+                        window.location.reload();
+                    }
+                })
+            } 
+        }
+
+        function cancelEdit(){
+            console.log("cancel");
+            document.getElementById('projectName').setAttribute('value', ''); 
+            document.getElementById('projectDescription').setAttribute('value', ''); 
+            document.getElementById('projectLink').setAttribute('value', ''); 
+            document.getElementById('projectRepoLink').setAttribute('value', ''); 
+            document.getElementById('projectFramework').setAttribute('value', ''); 
+            document.getElementById('projectLanguages').setAttribute('value', ''); 
+            document.getElementById('projectId').setAttribute('value', ''); 
+            document.getElementById('submitProject').setAttribute('value', 'Upload'); 
+            document.getElementById('cancelEditButton').setAttribute('hidden', true); 
+            document.getElementById('uploadedImage').setAttribute('hidden', true); 
+            document.getElementById('uploadedImage').setAttribute('src', '');
+            console.log("cancel2");
+        }
+
+        function downloadZip(zipBytes, projectName){
+            
+            let blob = new Blob([zipBytes], { type: 'application/zip, application/octet-stream'['content-type'] });
+            let objectUrl = URL.createObjectURL(blob);
+            let link = document.createElement('a');
+
+            link.href = objectUrl;
+            link.download = projectName +".zip";
+            link.click();
+
+            window.URL.revokeObjectURL(link.href);
+        }
+
+        function base64ToArrayBuffer(base64, projectName) {
+            var binary_string = window.atob(base64);
+            var len = binary_string.length;
+            var bytes = new Uint8Array(len);
+
+            for (var i = 0; i < len; i++) {
+                bytes[i] = binary_string.charCodeAt(i);
+            }
+
+            downloadZip(bytes.buffer, projectName);
+        }
+    </script>
+}
 
