@@ -9,6 +9,28 @@
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="icon" href="~/Assets/images/logo_proyecto.png">
     @RenderSection("Styles", false)
+    <style>
+        .card {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease-in-out;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            border-radius: 25px;
+        }
+
+        .card:hover {
+            transform: scale(0.9);
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+        }
+
+        .card:hover h2{
+           color: darkblue;
+        }
+
+        .card:hover img{
+            filter: blur(2px);
+        }
+
+    </style>
 </head>
 <body>
 

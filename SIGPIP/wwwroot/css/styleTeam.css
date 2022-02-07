@@ -1,4 +1,6 @@
-﻿/* Three columns side by side */
+﻿
+
+/* Three columns side by side */
 .column {
     float: left;
     width: 33.3%;
@@ -15,9 +17,6 @@
 }
 
 /* Add some shadows to create a card effect */
-.card {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-}
 
 /* Some left and right padding inside the container */
 .container {
@@ -35,6 +34,9 @@
     color: grey;
 }
 
+h2{
+    padding-top: 20px;
+}
 .button {
     border: none;
     outline: 0;
@@ -47,6 +49,9 @@
     width: 100%;
 }
 
-    .button:hover {
-        background-color: #555;
-    }
+.button:hover {
+    background-color: #555;
+}
+
+
+
