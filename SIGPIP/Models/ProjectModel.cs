@@ -19,7 +19,7 @@ namespace SIGPIP.Models
         [Required]
         public string projectRepoLink { get; set; }
         public string projectLink { get; set; }
-        //[Required]
+        [Required]
         public byte[] projectZipData { get; set; }
         [Required]
         public string projectFramework { get; set; }

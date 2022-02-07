@@ -172,6 +172,7 @@ namespace SIGPIP.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<byte[]>("projectZipData")
+                        .IsRequired()
                         .HasColumnType("varbinary(max)");
 
                     b.Property<Guid>("studentId")

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SIGPIP.Migrations
 {
-    public partial class DatabaseMigration : Migration
+    public partial class SigpipMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -92,7 +92,7 @@ namespace SIGPIP.Migrations
                     projectDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     projectRepoLink = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     projectLink = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    projectZipData = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
+                    projectZipData = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
                     projectFramework = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     projectLanguages = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     projectUploadDate = table.Column<DateTime>(type: "datetime2", nullable: false),
