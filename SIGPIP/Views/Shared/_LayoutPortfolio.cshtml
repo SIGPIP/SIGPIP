@@ -20,10 +20,13 @@
     <link rel="stylesheet" href="~/Assets/css/master_style.css">
 
     <!-- Select2 -->
-	<link rel="stylesheet" href="~/Assets/vendor_components/select2/dist/css/select2.min.css">
+    <link rel="stylesheet" href="~/Assets/vendor_components/select2/dist/css/select2.min.css">
 
     <!-- Fab Admin skins -->
     <link rel="stylesheet" href="~/Assets/css/skins/_all-skins.css">
+
+    <!-- CSS Card -->
+    <link rel="stylesheet" href="~/css/styleCardFlip.css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -268,6 +271,11 @@
 
     <!-- Form validator JavaScript -->
     <script src="~/Assets/js/pages/validation.js"></script>
+
     @await RenderSectionAsync("Scripts", required: false)
+
+    <script>
+        $(function () { $("input,select,textarea").not("[type=submit]").jqBootstrapValidation(); } );
+    </script>
 </body>
 </html>

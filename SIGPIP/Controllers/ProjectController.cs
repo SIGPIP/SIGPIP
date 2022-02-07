@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-
 using SIGPIP.Context;
 using SIGPIP.Models;
 
@@ -39,7 +38,6 @@ namespace SIGPIP.Controllers
         [HttpPost]
         public IActionResult RegisterStudentProject(ProjectModel projectModel)
         {
-
             if (String.IsNullOrWhiteSpace(projectModel.projectName) || String.IsNullOrWhiteSpace(projectModel.projectFramework) || String.IsNullOrWhiteSpace(projectModel.projectLanguages))
             {
                 return BadRequest("Debes incluir el nombre, lenguaje y framework del proyecto");
@@ -82,21 +80,21 @@ namespace SIGPIP.Controllers
 
                     if (existingProject != null)
                     {
-                        return BadRequest("Ya tienes un proyecto con el mismo nombre");
+                        return BadRequest("You already have a project with the same name");
                     }
 
                     existingProject = _database.Project.FirstOrDefault(p => p.projectLink == projectModel.projectLink);
 
                     if (existingProject != null)
                     {
-                        return BadRequest("Ya tienes un proyecto con el mismo link");
+                        return BadRequest("You already have a project with the same link");
                     }
 
                     existingProject = _database.Project.FirstOrDefault(p => p.projectRepoLink == projectModel.projectRepoLink);
 
                     if (existingProject != null)
                     {
-                        return BadRequest("Ya tienes un proyecto con el mismo repositorio");
+                        return BadRequest("You already have a project with the same repository");
                     }
 
                     projectModel.projectId = Guid.NewGuid();
