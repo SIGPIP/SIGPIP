@@ -8,6 +8,18 @@
     Layout = "~/Views/Shared/_LayoutPortfolio.cshtml";
 }
 
+<style>
+    .card{
+        width: 100% !important;
+        height: auto !important;
+    }
+
+    #curve_values{
+        display:flex;
+        justify-content: center;
+    }
+</style>
+
 <div class="content-wrapper">
     
     <!-- Content Header (Page header) -->
@@ -27,7 +39,7 @@
         </h2>
     </section>
     <!-- Main content -->
-    <section class="content">
+    <section class="content" style="min-width: 1500px">
         @{
             IDictionary<string,int> languagesDict = new Dictionary<string,int>();
             IDictionary<string,int> frameworksDict = new Dictionary<string,int>();
@@ -123,7 +135,7 @@
         }
         <div class="row justify-content-center">
             <div class="col-6 col-sm-4 col-md-3">
-                <div class="card text-white bg-dark">
+                <div class="card text-white bg-dark m-auto">
                     <div class="card-body">
                         <h2><p align="center">
                             Projects created this month
@@ -137,7 +149,7 @@
                 </div>
             </div>
             <div class="col-6 col-sm-4 col-md-3">
-                <div class="card text-white bg-dark">
+                <div class="card text-white bg-dark m-auto">
                     <div class="card-body">
                         <h2><p align="center">
                             Projects updated this month
@@ -152,7 +164,7 @@
             </div>
         </div>
          <div class="row justify-content-center">
-             <div class="col-12 col-md-5">
+             <div class="col-12 col-md-2">
                 <div class="card d-flex align-items-stretch">
                     <div class="card-body">
                         <div class="col-12">
@@ -172,7 +184,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-md-7">
+            <div class="col-12 col-md-10">
                 <div class="card">
                     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
                       <script type="text/javascript">
@@ -187,6 +199,7 @@
                                 @: data.addRows([["@projectsDict.ElementAt(i).Key",@projectsDict.ElementAt(i).Value]]);
                             }
                           var options = {
+                            width: "100%",
                             height: 400,
                             bar: {groupWidth: "95%"},
                             legend: { position: "none" }, "fontSize":17
@@ -203,7 +216,7 @@
             </div>
         </div>
         <div class="row justify-content-center">
-            <div class="col-7">
+            <div class="col-lg-6">
                 <div class="card">
                     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
                       <script type="text/javascript">
@@ -225,6 +238,7 @@
                                              role: "annotation" }]);
 
                           var options = {
+                            width: "100%",
                             height: 400,
                             bar: {groupWidth: "95%"},
                             legend: { position: "none" }, "fontSize":17
@@ -239,7 +253,7 @@
                     </div>
                 </div>
             </div>
-           <div class="col-5">
+           <div class="col-lg-6">
                 <div class="card">
                     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
                     <script type="text/javascript">
@@ -264,7 +278,7 @@
                             @: data.addRows([["@languagesDict.ElementAt(i).Key.ToUpper()",@languagesDict.ElementAt(i).Value]]);
                         }
                         // Set chart options
-                        var options = {'height': 400,"is3D":true, "fontSize":17};
+                        var options = {width: "100%",'height': 400,"is3D":true, "fontSize":17};
 
                         // Instantiate and draw our chart, passing in some options.
                         var chart = new google.visualization.PieChart(document.getElementById('chart_div1'));
@@ -279,7 +293,7 @@
             </div>
         </div>
         <div class="row justify-content-center">
-            <div class="col-6">
+            <div class="col-lg-6">
                 <div class="card text-dark">
                   <div class="card-header" style="background-color:#D9DADB; color:black">
                         <h3>Latest created project</h3>
@@ -301,7 +315,7 @@
                    }
                 </div>
             </div>
-            <div class="col-6">
+            <div class="col-lg-6">
                 <div class="card text-dark">
                   <div class="card-header" style="background-color:#D9DADB; color:black">
                         <h3>Latest updated project</h3>
